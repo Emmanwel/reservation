@@ -1,0 +1,231 @@
+[
+    {
+      "name": "Charming Studio < 10 Miles to Wells' Beaches!",
+      "pricePerNight": 1600,
+      "description": "A friendly atmosphere and natural delights await your visit to the town of Wells! Stay at this well-equipped 1-bath studio and enjoy easy access to several beaches, including Wells Beach and Watamu Island Beach, as well as Rachel Carson National Wildlife Refuge - the best spot for wildlife viewing just 8 miles away. Not to mention, with the downtown area just 10 minutes from the vacation rental,",
+      "address": "162  30200 Rwaken Street, Nairobi, NRB, 00200",
+      "guestCapacity": 1,
+      "numOfBeds": 1,
+      "internet": true,
+      "breakfast": true,
+      "airConditioned": false,
+      "petsAllowed": false,
+      "roomCleaning": true,
+      "images": [
+        {
+          "public_id": "bookit/rooms/1_bzynlv",
+          "url": "https://res.cloudinary.com/bookit/image/upload/v1618590762/bookit/rooms/1_bzynlv.jpg"
+        },
+        {
+          "public_id": "bookit/rooms/2_s1u52n",
+          "url": "https://res.cloudinary.com/bookit/image/upload/v1618590761/bookit/rooms/2_s1u52n.jpg"
+        }
+      ],
+      "category": "King"
+    },
+    {
+      "name": "Picturesque 2-Story Farmhouse w/Private Hot Tub",
+      "pricePerNight": 200,
+      "description": "Find plenty of space for a family or a large group at this picturesque Wells home, the perfect spot for a relaxing getaway in charming, quintessential Maine style! Spend your days on the beautiful nearby beaches, and come home to a large backyard and orchard where your kids can play, as well as a patio with a gas grill for barbecues on summer afternoons.",
+      "address": "200 Olympic Dr, Stafford, VS, 22554",
+      "guestCapacity": 2,
+      "numOfBeds": 2,
+      "internet": true,
+      "breakfast": false,
+      "airConditioned": true,
+      "petsAllowed": false,
+      "roomCleaning": true,
+      "images": [
+        {
+          "public_id": "bookit/rooms/3_quuli7.jpg",
+          "url": "https://res.cloudinary.com/bookit/image/upload/v1618590762/bookit/rooms/3_quuli7.jpg"
+        }
+      ],
+      "category": "Twins"
+    },
+    {
+      "name": "Downtown Portsmouth Private Getaway! Hot Tub",
+      "pricePerNight": 820,
+      "description": "Absolutely the best location in Limuru! Beautifully furnished, this spacious and private home is perfectly suited for taking in all of the must-see sights and historic landmarks that make this vibrant city so unique. Situated near the banks of the Piscataqua River just minutes away from Strawbery Banke Museum, Prescott Park, USS Albacore Museum, Market Square and more!",
+      "address": "3747 Parkway Street, Mudundo Valley, MV, 26881",
+      "guestCapacity": 3,
+      "numOfBeds": 2,
+      "internet": false,
+      "breakfast": true,
+      "airConditioned": true,
+      "petsAllowed": true,
+      "roomCleaning": false,
+      "images": [
+        {
+          "public_id": "bookit/rooms/4_sju0ql",
+          "url": "https://res.cloudinary.com/bookit/image/upload/v1618590765/bookit/rooms/4_sju0ql.jpg"
+        }
+      ],
+      "category": "King"
+    },
+    {
+      "name": "Spacious Suite in a quiet Olduvai Gorge neghborhood.",
+      "pricePerNight": 950,
+      "description": "Our largest room with a queen bed and foldable sofa. Comfortably fits 2-3 adults, four adults maximum. Decorated with Irish-themed colors and arts. It has a private bathroom with a shower, equipped with smart TV, mini-fridge, desk, chairs. Enjoy City views at the sitting area by the window. Located on the 3rd floor with no elevator.",
+      "address": "68 Cherry St, Buffalo, 14202",
+      "guestCapacity": 6,
+      "numOfBeds": 3,
+      "internet": true,
+      "breakfast": false,
+      "airConditioned": true,
+      "petsAllowed": false,
+      "roomCleaning": true,
+      "images": [
+        {
+          "public_id": "bookit/rooms/5_jmydt6",
+          "url": "https://res.cloudinary.com/bookit/image/upload/v1618590762/bookit/rooms/5_jmydt6.jpg"
+        },
+        {
+          "public_id": "bookit/rooms/6_nwmr5f",
+          "url": "https://res.cloudinary.com/bookit/image/upload/v1618590764/bookit/rooms/6_nwmr5f.jpg"
+        }
+      ],
+      "category": "Single"
+    },
+    {
+      "name": "Mzinga Motel, Beach Plaza",
+      "pricePerNight": 10500,
+      "description": "Our largest room with a queen bed and foldable sofa. Comfortably fits 2-3 adults, four adults maximum. Decorated with Irish-themed colors and arts. It has a private bathroom with a shower, equipped with smart TV, mini-fridge, desk, chairs. Enjoy City views at the sitting area by the window. Located on the 3rd floor with no elevator.",
+      "address": "4724  Bunyala Road, Nairobi, 00100",
+      "guestCapacity": 2,
+      "numOfBeds": 1,
+      "internet": true,
+      "breakfast": true,
+      "airConditioned": true,
+      "petsAllowed": false,
+      "roomCleaning": true,
+      "images": [
+        {
+          "public_id": "bookit/rooms/7_hshhzq",
+          "url": "https://res.cloudinary.com/bookit/image/upload/v1618590764/bookit/rooms/7_hshhzq.jpg"
+        }
+      ],
+      "category": "King"
+    },
+    {
+      "name": "Vila Rossa Kempiski, Along Muindi Mbigu Street",
+      "pricePerNight": 16782,
+      "description": "Relax and elevate your spring travel with a complimentary room upgrade or discounted suite experience at select hotels. Located on the 3rd floor with no elevator.",
+      "address": "1029  Godfrey Street, Kitale, 30200",
+      "guestCapacity": 2,
+      "numOfBeds": 2,
+      "internet": true,
+      "breakfast": true,
+      "airConditioned": true,
+      "petsAllowed": false,
+      "roomCleaning": true,
+      "images": [
+        {
+          "public_id": "bookit/rooms/8_crn0xy",
+          "url": "https://res.cloudinary.com/bookit/image/upload/v1618590765/bookit/rooms/8_crn0xy.jpg"
+        }
+      ],
+      "category": "Twins"
+    },
+    {
+      "name": "Hotel Garni Ischgl ☆ 4 star room comfort",
+      "pricePerNight": 2890,
+      "description": "Spread out in our spacious and airy Executive King Suite, which boasts a plush king bed and several sitting areas. You'll enjoy the privacy of our beautifully designed Master Suite that offers the space, functionality and efficiency you desire while vacationing.Our largest room with a queen bed and foldable sofa.",
+      "address": "2645  Parrish Avenue, LAGOS, MO, 63116",
+      "guestCapacity": 5,
+      "numOfBeds": 3,
+      "internet": true,
+      "breakfast": true,
+      "airConditioned": true,
+      "petsAllowed": true,
+      "roomCleaning": true,
+      "images": [
+        {
+          "public_id": "bookit/rooms/9_konrjf",
+          "url": "https://res.cloudinary.com/bookit/image/upload/v1618590849/bookit/rooms/9_konrjf.jpg"
+        }
+      ],
+      "category": "Single"
+    },
+    {
+      "name": "The Spa at Base Camp at Kerry Hotel",
+      "pricePerNight": 5286,
+      "description": "Relax in the large living room with many seating space and a 65 inches flat screen TV. Contact us directly at 1-888-838-0025 for more information and reservation. It has a private bathroom with a shower, equipped with smart TV, mini-fridge, desk, chairs. Enjoy City views at the sitting area by the window. Located on the 3rd floor with no elevator.",
+      "address": "3118  Red Hawk Road, Garfield, MN, 56332",
+      "guestCapacity": 2,
+      "numOfBeds": 1,
+      "internet": true,
+      "breakfast": false,
+      "airConditioned": true,
+      "petsAllowed": false,
+      "roomCleaning": true,
+      "images": [
+        {
+          "public_id": "bookit/rooms/10_w8w8yi",
+          "url": "https://res.cloudinary.com/bookit/image/upload/v1618590840/bookit/rooms/10_w8w8yi.jpg"
+        }
+      ],
+      "category": "Single"
+    },
+    {
+        "name": "Hotel Garni Ischgl ☆ 4 star room comfort",
+        "pricePerNight": 73,
+        "description": "Our spacious and comfortable Corner Junior Suites feature luxury bedding, extra space and some offer spectacular views of Portland. Relax in our spacious suites with a balcony and beautiful view, offering the space you need to feel at home.",
+        "address": "2645  Parrish Avenue, SAINT LOUIS, MO, 63116",
+        "guestCapacity": 5,
+        "numOfBeds": 3,
+        "internet": false,
+        "breakfast": false,
+        "airConditioned": true,
+        "petsAllowed": false,
+        "roomCleaning": true,
+        "images": [
+          {
+            "public_id": "bookit/rooms/9_konrjf",
+            "url": "https://res.cloudinary.com/bookit/image/upload/v1618590849/bookit/rooms/9_konrjf.jpg"
+          }
+        ],
+        "category": "King"
+      },
+      {
+        "name": "Hotel Garni Ischgl ☆ 4 star room comfort",
+        "pricePerNight": 100,
+        "description": "Our suites offer an elegant living room separate from the bedroom. Relax and feel right at home in our Griffin Suite, complete with a separate bedroom, spacious living room, a kitchenette, and direct access to the pool.",
+        "address": "2645  Parrish Avenue, MOMBASA, MO, 63116",
+        "guestCapacity": 5,
+        "numOfBeds": 3,
+        "internet": true,
+        "breakfast": true,
+        "airConditioned": true,
+        "petsAllowed": true,
+        "roomCleaning": false,
+        "images": [
+          {
+            "public_id": "bookit/rooms/9_konrjf",
+            "url": "https://res.cloudinary.com/bookit/image/upload/v1618590849/bookit/rooms/9_konrjf.jpg"
+          }
+        ],
+        "category": "Single"
+      },
+      {
+        "name": "Swahili Resort and Reservation ",
+        "pricePerNight": 820,
+        "description": "Has a hellipad. Embrace the unrivaled luxuries of our Governor Suite's living room. Corner Suite with Amazing Banderas Bay Ocean Front View,Sofa Bed, and spacious Living area.",
+        "address": "2645  Ilinois Avenue, KISUMU, MO, 63116",
+        "guestCapacity": 5,
+        "numOfBeds": 3,
+        "internet": true,
+        "breakfast": true,
+        "airConditioned": true,
+        "petsAllowed": false,
+        "roomCleaning": true,
+        "images": [
+          {
+            "public_id": "bookit/rooms/9_konrjf",
+            "url": "https://res.cloudinary.com/bookit/image/upload/v1618590849/bookit/rooms/9_konrjf.jpg"
+          }
+        ],
+        "category": "Twins"
+      }
+  ]
+  
