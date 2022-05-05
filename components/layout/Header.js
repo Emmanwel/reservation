@@ -36,12 +36,15 @@ const Header = () => {
           </div>
         </div>
         <nav className="navbar navbar-expand-lg  bg-gradient h-auto fs-4 fw-bold">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand font-weight-bold text-danger" href="/">
             Services
           </a>
         </nav>
         <nav className="navbar navbar-expand-lg bg-gradient h-auto fs-4 fw-bold ">
-          <a className="navbar-brand btn-sm border-3" href="">
+          <a
+            className="navbar-brand btn-sm border-3 font-weight-bold text-danger"
+            href="/"
+          >
             Our Deals
           </a>
         </nav>

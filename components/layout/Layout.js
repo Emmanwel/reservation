@@ -19,7 +19,7 @@ const Layout = ({ children, title = "Book Best Resorts for your Holiday" }) => {
       <Header />
       <ToastContainer position="bottom-right" />
       {children}
-       <ReaF /> 
+      <ReaF />
     </div>
   );
 };

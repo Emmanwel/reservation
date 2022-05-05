@@ -17,6 +17,7 @@ export default function Index() {
       <Dd />
       <Home />
       <ServiceSection />
+
       <TopSection />
       <Gallery />
     </Layout>

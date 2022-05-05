@@ -32,7 +32,7 @@ export default function Dd() {
 
       <div
         id={styles.intro}
-        className="img-fluid hover-shadow container-xxl p-5 text-center h-1000 w-auto"
+        className="img-fluid hover-shadow container-xxl p-5 text-center h-2000 w-auto"
         style={{
           backgroundImage:
             "url('https://mdbcdn.b-cdn.net/img/new/standard/city/047.webp')",
@@ -43,11 +43,8 @@ export default function Dd() {
             <div className="text-white">
               <h1>Make Every Night Count…Twice</h1>
               <h1 className="mb-3">Explore our Best Resorts</h1>
-              <h5>
-                Earn 1,000 bonus points and 1 bonus Elite Night Credit each
-                night.
-              </h5>
-              <Link href="/">
+
+              <Link href="/search">
                 <a
                   className="btn btn-outline-light btn-lg m-2"
                   role="button"

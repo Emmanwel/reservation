@@ -26,30 +26,29 @@ const ReaF = () => {
             {new Date().getFullYear()} Mahjong Resorts Reservation. All Rights
             Reserved.
           </span>
+          <Link
+            href="https://github.com/sudiptob2/simple-react-footer"
+            target="_blank"
+            className={styles.item3}
+          >
+            <FontAwesomeIcon icon={faGithub} />
+          </Link>
+          <Link
+            href="http://fb.com/sudiptob2"
+            target="_blank"
+            className={styles.item4}
+          >
+            <FontAwesomeIcon icon={faFacebook} />
+          </Link>
+          <Link
+            a
+            href="https://www.youtube.com/"
+            target="_blank"
+            className={styles.item5}
+          >
+            <FontAwesomeIcon icon={faYoutube} />
+          </Link>
         </div>
-
-        <Link
-          href="https://github.com/sudiptob2/simple-react-footer"
-          target="_blank"
-          className={styles.item3}
-        >
-          <FontAwesomeIcon icon={faGithub} />
-        </Link>
-        <Link
-          href="http://fb.com/sudiptob2"
-          target="_blank"
-          className={styles.item4}
-        >
-          <FontAwesomeIcon icon={faFacebook} />
-        </Link>
-        <Link
-          a
-          href="https://www.youtube.com/"
-          target="_blank"
-          className={styles.item5}
-        >
-          <FontAwesomeIcon icon={faYoutube} />
-        </Link>
       </div>
 
       {false && <PrivacyModal click={true} />}

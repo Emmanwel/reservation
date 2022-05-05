@@ -14,9 +14,9 @@ module.exports = {
     STRIPE_SECRET_KEY:
       "sk_test_51KYuKkLqKqksVJfuGlk7BsetNkyobfDZhFKn4MHtbK1p91P0dvlgX7ycR2gxvFg1Q0VRNENzfkKXYwNPOoHI9J2n001KF8dfkD",
 
-    STRIPE_WEBHOOK_SECRET: "whsec_OEfMOse3Vow4KU5JKnP04yexE4BcNlWi",
+    //STRIPE_WEBHOOK_SECRET: "whsec_OEfMOse3Vow4KU5JKnP04yexE4BcNlWi",
 
-    //STRIPE_WEBHOOK_SECRET: "whsec_a1223b72766ab68ab7903dbb5ac6c6990e58fc81ea8ba51d2464154d8cebab93",
+    STRIPE_WEBHOOK_SECRET: "whsec_a1223b72766ab68ab7903dbb5ac6c6990e58fc81ea8ba51d2464154d8cebab93",
 
     CLOUDINARY_CLOUD_NAME: "buluma",
     CLOUDINARY_API_KEY: "725726772621631",
@@ -29,7 +29,7 @@ module.exports = {
     SMTP_FROM_EMAIL: "noreply@resorts.com",
     SMTP_FROM_NAME: "Resorts Reservation",
 
-    NEXTAUTH_URL:'https://reserveyourroom.vercel.app',
+    //NEXTAUTH_URL:'https://reserveyourroom.vercel.app',
   },
   images: {
     domains: ["res.cloudinary.com"],

@@ -15,7 +15,7 @@ const ServiceSection = () => {
         </p>
         <br />
         <br />
-        <a href="/">Explore</a>
+        <a href="/search">Explore</a>
       </div>
       <div className={styles.tours}>
         <div className={styles.places}>
@@ -28,7 +28,8 @@ const ServiceSection = () => {
           />
           <br />
           <br />
-          <a href="#">Book Now 15% OFF</a>
+
+          <a href="/search">Book Now</a>
         </div>
         <div className={styles.places}>
           <h2>Kitale</h2>
@@ -44,7 +45,7 @@ const ServiceSection = () => {
           /> */}
           <br />
           <br />
-          <a href="#">Book Now 20% OFF</a>
+          <a href="#">Book Now</a>
         </div>
         <div className={styles.places}>
           <h2>Mombasa</h2>
@@ -60,7 +61,7 @@ const ServiceSection = () => {
           /> */}
           <br />
           <br />
-          <a href="#">Book Now 25% OFF</a>
+          <a href="#">Book Now</a>
         </div>
       </div>
     </div>
