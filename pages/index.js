@@ -1,25 +1,29 @@
 import Home from "../components/Home";
 import Layout from "../components/layout/Layout.js";
-import Dd from "../components/Dd";
-import { getRooms } from "../redux/actions/roomActions";
 
-import Gallery from "../components/layout/Gallery";
+import { getRooms } from "../redux/actions/roomActions";
 
 import { wrapper } from "../redux/store";
 //import EntireSection from "../components/Exray/EntireSection";
 //import ReaF from "../components/Foot/ReaF";
 import ServiceSection from "../components/TestMode/ServiceSection";
 import TopSection from "../components/layout/TopSection";
+import Hero from "../components/Hero";
+import Experience from "../components/Experience";
+import Pictures from "../components/Pictures";
 
 export default function Index() {
   return (
     <Layout>
-      <Dd />
+      <Hero />
+
       <Home />
-      <ServiceSection />
+
+      <Experience />
 
       <TopSection />
-      <Gallery />
+
+      <Pictures />
     </Layout>
   );
 }

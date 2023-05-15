@@ -1,0 +1,284 @@
+.hero__content img {
+  width: 2.3rem;
+  height: 2.3rem;
+}
+
+.hero__subtitle {
+  display: flex;
+  align-items: center;
+}
+.hero__subtitle img {
+  width: 5.3rem;
+  margin: 10px;
+  height: 5.3rem;
+}
+
+.hero__content h1 {
+  font-size: 3.2rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  color: #4a78ac;
+}
+
+.hero__content h1 .highlight {
+  color: red;
+  text-decoration: underline;
+  font-weight: bold;
+}
+.hero__content p {
+  font-size: 1.2rem;
+  color: #39688f;
+  line-height: 2rem;
+}
+
+.hero__img__box1 img,
+.hero__img__box3 img,
+.hero__img__box2 video {
+  width: 100%;
+  height: 350px;
+  border-radius: 20px;
+  border: 1px solid;
+  object-fit: cover;
+}
+
+.hero__content {
+  padding-top: 2rem;
+}
+.hero__img__box1 {
+  margin-top: 15px;
+}
+.hero__img__box2 {
+  margin-top: 30px;
+}
+.hero__img__box3 {
+  margin-top: 45px;
+}
+
+.button {
+  border-radius: 15px;
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #ee6e6e;
+  color: white;
+}
+
+.form__group {
+  /* display: flex;
+  gap: 3; */
+}
+.search__bar {
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  width: max-content;
+  margin-top: 50px;
+}
+.form__group span {
+  font-size: 1.8rem;
+  color: #ee6e6e;
+}
+.form__group input {
+  border: none;
+  font-size: 0.9rem;
+  color: #0b2727;
+  font-weight: 500;
+}
+.form__group input:focus {
+  outline: none;
+}
+
+/* Services */
+.services__subtitle {
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: #ee6e6e;
+  font-family: Island Moments;
+}
+.services__subtitle {
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.service__item {
+  padding: 1rem;
+  border-bottom: 1px solid #faa83586;
+  border-right: 1px solid #faa83586;
+  border-radius: 0.5rem;
+}
+
+.service__img {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  background: #faa935;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  line-height: 50px;
+}
+
+.service__img img {
+  width: 100%;
+}
+
+.service__images {
+  width: 100%;
+}
+.service__img h5 {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.service__img p {
+  font-size: 0.9rem;
+  color: #6e7074;
+}
+
+.counter__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px 40px;
+  margin-top: 2.5rem;
+}
+
+.experience {
+  /* background: #6e7074; */
+}
+
+.experience__content h2 {
+  font-size: 2.5rem;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.experience__content p {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  color: #6e7074;
+}
+
+.counter__box span {
+  width: 70px;
+  height: 70px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ff7e01;
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 600;
+  border-radius: 10px 5px 10px 5px;
+}
+.counter__box h6 {
+  font-size: 1.1rem;
+  margin-top: 0.7rem;
+  color: #6e7074;
+}
+
+.experience__img {
+  width: 90%;
+}
+
+/* Gallery */
+
+.gallery__title {
+  font-size: 2.3rem;
+  margin-bottom: 2.5rem;
+  margin-top: 1rem;
+}
+
+.masonry__img {
+  transition: 0.3s;
+}
+
+.masonry__img:hover {
+  transform: scale(1.1);
+}
+.testimonial__title {
+  font-size: 2.3rem;
+  margin-top: 1rem;
+}
+
+.testmonial {
+  /* padding-top: 1rem;
+  padding-bottom: 1rem; */
+  /* padding-left: 0.75rem;
+  padding-right: 0.75rem; */
+}
+.avatar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+.avatars {
+  width: 25%;
+  height: 25%;
+  border-radius: 0.95rem;
+}
+.name {
+  margin-bottom: 0px;
+  margin-top: 3px;
+}
+
+.heroes {
+  padding-top: 24px;
+}
+
+.flip_card {
+  background-color: transparent;
+  width: 200px;
+  height: 140px;
+  border: 1px solid #f1f1f1;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip_card_inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip_card:hover .flip_card_inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip_card_front,
+.flip_card_back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip_card_front {
+  background-color: #bbb;
+  color: black;
+}
+.flip_card_front img {
+  width: 300px;
+  height: 200px;
+}
+
+/* Style the back side */
+.flip_card_back {
+  background-color: rgb(255, 150, 30);
+  color: white;
+  transform: rotateY(180deg);
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+}

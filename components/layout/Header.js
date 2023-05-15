@@ -6,6 +6,21 @@ import { loadUser } from "../../redux/actions/userActions";
 import { signOut } from "next-auth/client";
 import styles from "../../styles/Book.module.css";
 
+import { Container, Row, Button } from "reactstrap";
+import { NavLink } from "react-router-dom";
+import { getDisplayName } from "next/dist/shared/lib/utils";
+
+const nav__links = [
+  {
+    path: "/home",
+    display: "Home",
+  },
+  {
+    path: "#",
+    display: "Services",
+  },
+];
+
 const Header = () => {
   const dispatch = useDispatch();
 
@@ -22,109 +37,111 @@ const Header = () => {
   };
 
   return (
-    <nav className="navbar row justify-content-center sticky-top">
-      <div className="container">
-        <div className="col-3 p-0">
-          <div className="navbar-brand">
-            <Link href="/">
-              <img
-                style={{ cursor: "pointer" }}
-                src="/images/bookit_logo.png"
-                alt="BookIT"
-              />
-            </Link>
+    <>
+      <nav className="navbar row justify-content-center sticky-top">
+        <div className="container">
+          <div className="col-3 p-0">
+            <div className="navbar-brand">
+              <Link href="/">
+                <img
+                  style={{ cursor: "pointer" }}
+                  src="/images/bookit_logo.png"
+                  alt="BookIT"
+                />
+              </Link>
+            </div>
           </div>
-        </div>
-        <nav className="navbar navbar-expand-lg  bg-gradient h-auto fs-4 fw-bold">
-          <a className="navbar-brand font-weight-bold text-danger" href="/">
-            Services
-          </a>
-        </nav>
-        <nav className="navbar navbar-expand-lg bg-gradient h-auto fs-4 fw-bold ">
-          <a
-            className="navbar-brand btn-sm border-3 font-weight-bold text-danger"
-            href="/"
-          >
-            Our Deals
-          </a>
-        </nav>
+          <nav className="navbar navbar-expand-lg  bg-gradient h-auto fs-4 fw-bold">
+            <a className="navbar-brand font-weight-bold text-danger" href="/">
+              Services
+            </a>
+          </nav>
+          <nav className="navbar navbar-expand-lg bg-gradient h-auto fs-4 fw-bold ">
+            <a
+              className="navbar-brand btn-sm border-3 font-weight-bold text-danger"
+              href="/"
+            >
+              Our Deals
+            </a>
+          </nav>
 
-        <div className="col-3 mt-3 mt-md-0 text-center">
-          {user ? (
-            <div className="ml-4 dropdown d-line">
-              <a
-                className="btn dropdown-toggle mr-4"
-                id="dropDownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <figure className="avatar avatar-nav">
-                  <img
-                    src={user.avatar && user.avatar.url}
-                    alt={user && user.name}
-                    className="rounded-circle"
-                  />
-                </figure>
-                <span>{user && user.name}</span>
-              </a>
+          <div className="col-3 mt-3 mt-md-0 text-center">
+            {user ? (
+              <div className="ml-4 dropdown d-line">
+                <a
+                  className="btn dropdown-toggle mr-4"
+                  id="dropDownMenuButton"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <figure className="avatar avatar-nav">
+                    <img
+                      src={user.avatar && user.avatar.url}
+                      alt={user && user.name}
+                      className="rounded-circle"
+                    />
+                  </figure>
+                  <span>{user && user.name}</span>
+                </a>
 
-              <div
-                className="dropdown-menu"
-                aria-labelledby="dropDownMenuButton"
-              >
-                {user.role === "admin" && (
-                  <>
-                    <Link href="/admin/rooms">
-                      <a className="dropdown-item">Rooms</a>
-                    </Link>
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="dropDownMenuButton"
+                >
+                  {user.role === "admin" && (
+                    <>
+                      <Link href="/admin/rooms">
+                        <a className="dropdown-item">Rooms</a>
+                      </Link>
 
-                    <Link href="/admin/bookings">
-                      <a className="dropdown-item">Bookings</a>
-                    </Link>
+                      <Link href="/admin/bookings">
+                        <a className="dropdown-item">Bookings</a>
+                      </Link>
 
-                    <Link href="/admin/users">
-                      <a className="dropdown-item">Users</a>
-                    </Link>
+                      <Link href="/admin/users">
+                        <a className="dropdown-item">Users</a>
+                      </Link>
 
-                    <Link href="/admin/reviews">
-                      <a className="dropdown-item">Reviews</a>
-                    </Link>
+                      <Link href="/admin/reviews">
+                        <a className="dropdown-item">Reviews</a>
+                      </Link>
 
-                    <hr />
-                  </>
-                )}
+                      <hr />
+                    </>
+                  )}
 
-                <Link href="/bookings/me">
-                  <a className="dropdown-item">My Bookings</a>
-                </Link>
+                  <Link href="/bookings/me">
+                    <a className="dropdown-item">My Bookings</a>
+                  </Link>
 
-                <Link href="/me/update">
-                  <a className="dropdown-item">Profile</a>
-                </Link>
+                  <Link href="/me/update">
+                    <a className="dropdown-item">Profile</a>
+                  </Link>
 
-                <Link href="/">
-                  <a
-                    className="dropdown-item text-danger"
-                    onClick={logoutHandler}
-                  >
-                    Logout
+                  <Link href="/">
+                    <a
+                      className="dropdown-item text-danger"
+                      onClick={logoutHandler}
+                    >
+                      Logout
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              !loading && (
+                <Link href="/login">
+                  <a className="btn btn-danger px-4 text-white login-header-btn float-right">
+                    Login
                   </a>
                 </Link>
-              </div>
-            </div>
-          ) : (
-            !loading && (
-              <Link href="/login">
-                <a className="btn btn-danger px-4 text-white login-header-btn float-right">
-                  Login
-                </a>
-              </Link>
-            )
-          )}
+              )
+            )}
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 };
 
