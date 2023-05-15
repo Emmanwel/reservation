@@ -1,3 +1,19 @@
+.know {
+  text-decoration: wavy !important;
+  text-transform: capitalize !important;
+  font-weight: bold !important;
+  font-style: italic !important;
+}
+.section__subtitle {
+  text-decoration: wavy;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-style: italic;
+  color: #000000;
+
+  background-color: #e4e4b6;
+}
+
 .hero__content img {
   width: 2.3rem;
   height: 2.3rem;
@@ -144,7 +160,11 @@
 }
 
 .experience {
-  /* background: #6e7074; */
+  padding-top: 48px;
+  padding-bottom: 20px;
+  background: #f1ebeb;
+  border: #6e7074;
+  border-radius: 78px;
 }
 
 .experience__content h2 {
@@ -225,7 +245,14 @@
 }
 
 .heroes {
-  padding-top: 24px;
+  padding-top: 34px;
+}
+.pads {
+  padding-top: 48px;
+  padding-bottom: 20px;
+  background: #f1ebeb;
+  border: #6e7074;
+  border-radius: 78px;
 }
 
 .flip_card {

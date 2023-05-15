@@ -13,7 +13,10 @@ const Hero = () => {
           <Col lg="6">
             <div className={styles.hero__content}>
               <div className={styles.hero__subtitle}>
-                <Subtitle subtitle={"Know Before you Come"} />
+                <Subtitle
+                  subtitle={"Know Before you Come"}
+                  className={styles.know}
+                />
                 <img
                   style={{ cursor: "pointer" }}
                   src="/images/mah.jpg"
@@ -55,20 +58,21 @@ const Hero = () => {
           <SearchBar />
         </Row>
       </Container>
-
-      <section>
-        <Container>
-          <Row>
-            <Col lg="3">
-              <h5 className={styles.services__subtitle}>What we Offer</h5>
-              <h2 className={styles.services__title}>
-                We offer our best services
-              </h2>
-            </Col>
-            <ServiceList />
-          </Row>
-        </Container>
-      </section>
+      <div className={styles.pads}>
+        <section>
+          <Container>
+            <Row>
+              <Col lg="3">
+                <h5 className={styles.services__subtitle}>What we Offer</h5>
+                <h2 className={styles.services__title}>
+                  We offer our best services
+                </h2>
+              </Col>
+              <ServiceList />
+            </Row>
+          </Container>
+        </section>
+      </div>
     </>
   );
 };

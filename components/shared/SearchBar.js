@@ -11,7 +11,7 @@ const SearchBar = () => {
             <FormGroup className={styles.form__group} d-flex gap-78>
               <div>
                 <button disabled className={styles.button}>
-                  Located in Multiple Location{" "}
+                  Located in Multiple Locations{" "}
                 </button>
               </div>
             </FormGroup>
