@@ -1,7 +1,4 @@
 import React from "react";
-import styles from "../../styles/Hometop.module.css";
-
-import { Col } from "reactstrap";
 
 import guideImg from "../../assets/images/cocktail.jpg";
 import guideImg1 from "../../assets/images/hike.jpg";
@@ -17,12 +14,12 @@ const servicesData = [
   {
     imgUrl: guideImg1,
     title: "Free Cocktails",
-    desc: "Sip on refreshing mojitos, savor the sophistication of martinis, or explore unique mixtures that showcase local flavors. ",
+    desc: "Sip on refreshing mojitos, savor the sophistication of martinis, or explore unique mixtures that showcase local flavors.",
   },
   {
     imgUrl: guideImg2,
     title: "Free Shuttle",
-    desc: "Sit back and relax as our dedicated drivers take care of your transportation needs. Arriving at the airport, exploring local attractions, or heading to business meetings. ",
+    desc: "Sit back and relax as our dedicated drivers take care of your transportation needs, from the airport to local attractions.",
   },
 ];
 
@@ -30,9 +27,7 @@ const ServiceList = () => {
   return (
     <>
       {servicesData.map((item, index) => (
-        <Col lg="3" key={index}>
-          <ServiceCard item={item} />
-        </Col>
+        <ServiceCard item={item} key={index} />
       ))}
     </>
   );

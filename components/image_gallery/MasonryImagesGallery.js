@@ -15,8 +15,8 @@ const MasonryImagesGallery = () => {
               className={styles.masonry__img}
               src={item}
               key={index}
-              alt=""
-              style={{ width: "100%", display: "block", borderRadius: "10px" }}
+              alt={`Resort gallery photo ${index + 1}`}
+              layout="responsive"
             />
           ))}
         </Masonry>

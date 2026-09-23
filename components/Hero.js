@@ -9,69 +9,57 @@ const Hero = () => {
   return (
     <>
       <Container className={styles.heroes}>
-        <Row>
-          <Col lg="6">
-            <div className={styles.hero__content}>
-              <div className={styles.hero__subtitle}>
-                <Subtitle
-                  subtitle={"Know Before you Come"}
-                  className={styles.know}
-                />
-                <img
-                  style={{ cursor: "pointer" }}
-                  src="/images/mah.jpg"
-                  alt="BookIT"
-                  className={styles.logo}
-                />
-              </div>
-              <h1>
-                Come Visit Us & Experience Memorable
-                <br />
-                <span className={styles.highlight}>Hospitality</span>
-              </h1>
-              <p>
-                Our Resorts Reservation Application showcases a strong emphasis
-                on technology, offering a range of sophisticated in-room options
-                and abundant entertainment choices
-              </p>
-            </div>
-          </Col>
+        <div className={styles.hero__grid}>
+          <div className={styles.hero__content}>
+            <Subtitle subtitle="Know before you come" />
+            <h1>
+              Come visit us &amp; experience memorable
+              <br />
+              <span className={styles.highlight}>hospitality</span>
+            </h1>
+            <p>
+              Our resorts showcase a strong emphasis on comfort and
+              technology, offering a range of sophisticated in-room options
+              and abundant entertainment choices for every kind of traveller.
+            </p>
 
-          <Col lg="2">
-            <div className={styles.hero__img__box1}>
-              <img src="images/12.jpg" />
-            </div>
-          </Col>
+            <SearchBar />
+          </div>
 
-          <Col lg="2">
-            <div className={styles.hero__img__box2}>
-              <video src="images/hero-video.mp4" />
+          <div className={styles.hero__collage}>
+            <div className={styles.hero__collage__main}>
+              <img src="/images/img3.jpg" alt="Overwater bungalow at sunset" />
             </div>
-          </Col>
-
-          <Col lg="2">
-            <div className={styles.hero__img__box3}>
-              <img src="images/gallery-03.jpg" />
+            <div className={styles.hero__collage__tile}>
+              <video
+                src="/images/hero-video.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
             </div>
-          </Col>
-
-          <SearchBar />
-        </Row>
+            <div className={styles.hero__collage__tile}>
+              <img src="/images/gallery-07.jpg" alt="Overwater walkway" />
+            </div>
+          </div>
+        </div>
       </Container>
+
       <div className={styles.pads}>
-        <section>
-          <Container>
-            <Row>
-              <Col lg="3">
-                <h5 className={styles.services__subtitle}>What we Offer</h5>
-                <h2 className={styles.services__title}>
-                  We offer our best services
-                </h2>
-              </Col>
-              <ServiceList />
-            </Row>
-          </Container>
-        </section>
+        <Container>
+          <Row>
+            <Col lg="4">
+              <span className={styles.eyebrow}>What we offer</span>
+              <h2 className={styles.services__title}>
+                We offer our best services
+              </h2>
+            </Col>
+          </Row>
+          <div className={styles.services__grid}>
+            <ServiceList />
+          </div>
+        </Container>
       </div>
     </>
   );

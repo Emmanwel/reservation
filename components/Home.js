@@ -22,9 +22,11 @@ const Home = () => {
   page = Number(page);
 
   useEffect(() => {
-    toast.error(error);
-    dispatch(clearErrors());
-  }, []);
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error]);
 
   const handlePagination = (pageNumber) => {
     if (location) {
@@ -37,7 +39,6 @@ const Home = () => {
       router.push(url);
     } else {
       router.push(`/?page=${pageNumber}`);
-      window.location.href = `/?page=${pageNumber}`;
     }
   };
 
@@ -49,32 +50,34 @@ const Home = () => {
   return (
     <>
       <section id="rooms" className="container mt-5">
-        <h2 className="mb-3 ml-2 stays-heading">
-          {location ? `Rooms in ${location}` : "All Rooms"}
+        <h2 className="mb-2 stays-heading">
+          {location ? `Rooms in ${location}` : "All rooms"}
         </h2>
         <Link href="/search">
-          <a className="ml-2 back-to-search">
-            <i className="fa fa-arrow-left"></i> Search Rooms
+          <a className="back-to-search d-inline-block mb-4">
+            <i className="fa fa-arrow-left"></i> Refine your search
           </a>
         </Link>
         <div className="row">
-          {rooms && rooms.length === 0 ? (
-            <div className="alert alert-danger mt-5 w-100">
-              <b>No Rooms.</b>
+          {!rooms || rooms.length === 0 ? (
+            <div className="alert alert-light border w-100 text-center py-5">
+              <b>No rooms match your search.</b>
+              <p className="mb-0 mt-2 text-muted">
+                Try a different location or clear your filters.
+              </p>
             </div>
           ) : (
-            rooms &&
             rooms.map((room) => <RoomItem key={room._id} room={room} />)
           )}
         </div>
       </section>
 
       {resPerPage < count && (
-        <div className="d-flex justify-content-center mt-5">
+        <div className="d-flex justify-content-center mt-5 mb-5">
           <Pagination
             activePage={page}
             itemsCountPerPage={resPerPage}
-            totalItemsCount={roomsCount}
+            totalItemsCount={count}
             onChange={handlePagination}
             nextPageText={"Next"}
             prevPageText={"Prev"}

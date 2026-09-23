@@ -1,87 +1,65 @@
 import React from "react";
+import { Container, Row, Col } from "reactstrap";
 import capture from "../../assets/capture.png";
 import ker from "../../assets/ker.jpg";
 import ed from "../../assets/ed.jpg";
 import Image from "next/image";
+import styles from "../../styles/Hometop.module.css";
+
+const testimonials = [
+  {
+    image: capture,
+    name: "Emmanuel Mukhebi",
+    role: "Local",
+    quote:
+      "In terms of importance when planning a holiday, this was one of the best -- it goes beyond the usual preference of the average traveller.",
+  },
+  {
+    image: ed,
+    name: "Lyton Nelly",
+    role: "Tourist",
+    quote:
+      "The resort demonstrated a real affinity for technology, with thoughtful in-room options and no shortage of entertainment.",
+  },
+  {
+    image: ker,
+    name: "Collete Opiyo",
+    role: "Visitor",
+    quote:
+      "The resort offered a genuinely stress-relieving environment -- well worth commending for the conditions alone.",
+  },
+];
 
 const TopSection = () => {
   return (
-    <section className="bg-light mt-5" id="tourist">
-      <div className="container">
-        <div className="row text-center">
-          <div className="col-sm-12 col-md-12 mb-4">
-            <h3 className="text-center mt-4 text-secondary">
-              Our Customers Opinions
-            </h3>
-          </div>
-          <div className="col-md-4">
-            <div className="testimonial mb-5">
-              <div className="avatar mx-auto">
-                <Image
-                  src={capture}
-                  //src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg"
-                  className="rounded-circle z-depth-1 img-fluid"
-                />
-              </div>
-              <h4 className="font-weight-bold dark-grey-text mt-4">
-                Emmanuel Mukhebi
-              </h4>
-              <h6 className="font-weight-bold blue-text my-3 text-uppercase text-info">
-                Local
-              </h6>
-              <p className="font-weight-normal dark-grey-text">
-                In terms of importance when planning a holiday. It was One of
-                the best. probably goes beyond the need and preference of the
-                average travel.
-              </p>
-            </div>
-          </div>
+    <section className={styles.testimonials} id="testimonials">
+      <Container>
+        <Row>
+          <Col lg="6">
+            <span className={styles.eyebrow}>Testimonials</span>
+            <h2 className={styles.gallery__title}>
+              What our guests have to say
+            </h2>
+          </Col>
+        </Row>
 
-          <div className="col-md-4">
-            <div className="testimonial mb-5">
-              <div className="avatar mx-auto">
-                <Image
-                  src={ed}
-                  //src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg"
-                  className="rounded-circle z-depth-3 img-fluid"
-                />
+        <div className={styles.testimonial__grid}>
+          {testimonials.map((t) => (
+            <div className={styles.testimonial__card} key={t.name}>
+              <p className={styles.testimonial__quote}>&ldquo;{t.quote}&rdquo;</p>
+              <div className={styles.testimonial__person}>
+                <div className={styles.testimonial__avatar}>
+                  <Image src={t.image} alt={t.name} width={52} height={52} />
+                </div>
+                <div>
+                  <h6>{t.name}</h6>
+                  <span>{t.role}</span>
+                </div>
               </div>
-              <h4 className="font-weight-bold dark-grey-text mt-4">
-                Lyton Nelly
-              </h4>
-              <h6 className="font-weight-bold blue-text my-3 text-uppercase text-info">
-                Tourist
-              </h6>
-              <p className="font-weight-normal dark-grey-text">
-                The Resort demonstrated an high affinity for technology, with
-                overly sophisticated in-room options with abundance of
-                entertainment.
-              </p>
             </div>
-          </div>
-          <div className="col-md-4">
-            <div className="testimonial mb-5">
-              <div className="avatar mx-auto">
-                <Image
-                  src={ker}
-                  //src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
-                  className="rounded-circle z-depth-1 img-fluid"
-                />
-              </div>
-              <h4 className="font-weight-bold dark-grey-text mt-4">
-                Collete Opiyo
-              </h4>
-              <h6 className="font-weight-bold blue-text my-3 text-uppercase text-info">
-                Visitor{" "}
-              </h6>
-              <p className="font-weight-normal dark-grey-text">
-                The resorts offered offered stress relieving environemnt that
-                made it comendable for the good conditions.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 };
