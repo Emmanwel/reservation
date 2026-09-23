@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { MDBDataTable } from "mdbreact";
-import easyinvoice from "easyinvoice";
+import DataTable from "../shared/DataTable";
+import generateInvoicePdf from "../../utils/generateInvoicePdf";
 
 import Loader from "../layout/Loader";
 
@@ -43,7 +43,7 @@ const AllBookings = () => {
       router.push("/admin/bookings");
       dispatch({ type: DELETE_BOOKING_RESET });
     }
-  }, [dispatch, deleteError, isDeleted]);
+  }, [dispatch, error, deleteError, isDeleted]);
 
   const setBookings = () => {
     const data = {
@@ -83,7 +83,7 @@ const AllBookings = () => {
           id: booking._id,
           checkIn: new Date(booking.checkInDate).toLocaleString("en-US"),
           checkOut: new Date(booking.checkOutDate).toLocaleString("en-US"),
-          amount: `$${booking.amountPaid}`,
+          amount: `Ksh ${booking.amountPaid}`,
           actions: (
             <>
               <Link href={`/admin/bookings/${booking._id}`}>
@@ -94,7 +94,7 @@ const AllBookings = () => {
 
               <button
                 className="btn btn-success mx-2"
-                onClick={() => downloadInvoice(booking)}
+                onClick={() => generateInvoicePdf(booking)}
               >
                 <i className="fa fa-download"></i>
               </button>
@@ -117,52 +117,6 @@ const AllBookings = () => {
     dispatch(deleteBooking(id));
   };
 
-  const downloadInvoice = async (booking) => {
-    const data = {
-      documentTitle: "Reservation INVOICE", //Defaults to INVOICE
-      currency: "USD",
-      taxNotation: "vat", //or gst
-      marginTop: 25,
-      marginRight: 25,
-      marginLeft: 25,
-      marginBottom: 25,
-      logo: "https://res.cloudinary.com/resorts/image/upload/v1646232564/resorts/avatars/logo_g6mike.png",
-      sender: {
-        company: "Resorts Reservation",
-        address: "650, 30200 Naivasha Road",
-        zip: "00100",
-        city: "Nairobi",
-        country: "Kenya",
-      },
-      client: {
-        company: `${booking.user.name}`,
-        address: `${booking.user.email}`,
-        zip: "",
-        city: `Check In: ${new Date(booking.checkInDate).toLocaleString(
-          "en-US"
-        )}`,
-        country: `Check In: ${new Date(booking.checkOutDate).toLocaleString(
-          "en-US"
-        )}`,
-      },
-      invoiceNumber: `${booking._id}`,
-      invoiceDate: `${new Date(Date.now()).toLocaleString("en-US")}`,
-      products: [
-        {
-          quantity: `${booking.daysOfStay}`,
-          description: `${booking.room.name}`,
-          tax: 0,
-          price: booking.room.pricePerNight,
-        },
-      ],
-      bottomNotice:
-        "This is auto generated Invoice of your booking on Book IT.",
-    };
-
-    const result = await easyinvoice.createInvoice(data);
-    easyinvoice.download(`invoice_${booking._id}.pdf`, result.pdf);
-  };
-
   return (
     <div className="container container-fluid">
       {loading ? (
@@ -171,12 +125,8 @@ const AllBookings = () => {
         <>
           <h1 className="my-5">{`${bookings && bookings.length} Bookings`}</h1>
 
-          <MDBDataTable
+          <DataTable
             data={setBookings()}
-            className="px-3"
-            bordered
-            striped
-            hover
           />
         </>
       )}

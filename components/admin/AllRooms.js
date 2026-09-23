@@ -2,13 +2,17 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { MDBDataTable } from "mdbreact";
+import DataTable from "../shared/DataTable";
 import Loader from "../layout/Loader";
 
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-import { getAdminRooms, deleteRoom } from "../../redux/actions/roomActions";
+import {
+  getAdminRooms,
+  deleteRoom,
+  clearErrors,
+} from "../../redux/actions/roomActions";
 import { DELETE_ROOM_RESET } from "../../redux/constants/roomConstants";
 
 const AllRooms = () => {
@@ -27,7 +31,7 @@ const AllRooms = () => {
     }
 
     if (deleteError) {
-      toast.erroe(deleteError);
+      toast.error(deleteError);
       dispatch(clearErrors());
     }
 
@@ -35,7 +39,7 @@ const AllRooms = () => {
       router.push("/admin/rooms");
       dispatch({ type: DELETE_ROOM_RESET });
     }
-  }, [dispatch, deleteError, isDeleted]);
+  }, [dispatch, error, deleteError, isDeleted]);
 
   const setRooms = () => {
     const data = {
@@ -74,7 +78,7 @@ const AllRooms = () => {
         data.rows.push({
           id: room._id,
           name: room.name,
-          price: `$${room.pricePerNight}`,
+          price: `Ksh ${room.pricePerNight}`,
           category: room.category,
           actions: (
             <>
@@ -118,12 +122,8 @@ const AllRooms = () => {
             </Link>
           </h1>
 
-          <MDBDataTable
+          <DataTable
             data={setRooms()}
-            className="px-3"
-            bordered
-            striped
-            hover
           />
         </>
       )}

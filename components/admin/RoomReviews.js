@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { MDBDataTable } from "mdbreact";
+import DataTable from "../shared/DataTable";
 import Loader from "../layout/Loader";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -109,11 +109,12 @@ const RoomReviews = () => {
         <div className="col-5">
           <form>
             <div className="form-group">
-              <label htmlFor="roomId_field">Enter Room ID</label>
+              <label htmlFor="roomId_field">Enter room ID</label>
               <input
-                type="email"
+                type="text"
                 id="roomId_field"
                 className="form-control"
+                placeholder="e.g. 6224...c9a1"
                 value={roomId}
                 onChange={(e) => setRoomId(e.target.value)}
               />
@@ -123,12 +124,8 @@ const RoomReviews = () => {
       </div>
 
       {reviews && reviews.length > 0 ? (
-        <MDBDataTable
+        <DataTable
           data={setReviews()}
-          className="px-3"
-          bordered
-          striped
-          hover
         />
       ) : (
         <div className="alert alert-danger mt-5 text-center">No Reviews</div>

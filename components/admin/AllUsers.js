@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { MDBDataTable } from "mdbreact";
+import DataTable from "../shared/DataTable";
 import Loader from "../layout/Loader";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -31,7 +31,7 @@ const AllUsers = () => {
     }
 
     if (deleteError) {
-      toast.erroe(deleteError);
+      toast.error(deleteError);
       dispatch(clearErrors());
     }
 
@@ -39,7 +39,7 @@ const AllUsers = () => {
       router.push("/admin/users");
       dispatch({ type: DELETE_USER_RESET });
     }
-  }, [dispatch, error, isDeleted]);
+  }, [dispatch, error, deleteError, isDeleted]);
 
   const setUsers = () => {
     const data = {
@@ -114,12 +114,8 @@ const AllUsers = () => {
         <>
           <h1 className="my-5">{`${users && users.length} Users`}</h1>
 
-          <MDBDataTable
+          <DataTable
             data={setUsers()}
-            className="px-3"
-            bordered
-            striped
-            hover
           />
         </>
       )}
