@@ -35,11 +35,18 @@ import {
   CLEAR_ERRORS,
 } from "../constants/roomConstants";
 
+// Note: every REQUEST/FAIL branch below spreads `...state` first. Components
+// read fields straight off these slices without always guarding for
+// `undefined` (e.g. `room.name`, `dates.forEach`), so a FAIL case that
+// dropped the slice's base shape (e.g. `room: {}`, `dates: []`) would crash
+// the page on any transient fetch error instead of just showing a toast.
+
 // All rooms reducer
 export const allRoomsReducer = (state = { rooms: [] }, action) => {
   switch (action.type) {
     case ADMIN_ROOMS_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -60,6 +67,9 @@ export const allRoomsReducer = (state = { rooms: [] }, action) => {
     case ALL_ROOMS_FAIL:
     case ADMIN_ROOMS_FAIL:
       return {
+        ...state,
+        loading: false,
+        rooms: state.rooms || [],
         error: action.payload,
       };
 
@@ -84,6 +94,8 @@ export const roomDetailsReducer = (state = { room: {} }, action) => {
 
     case ROOM_DETAILS_FAIL:
       return {
+        ...state,
+        room: state.room || {},
         error: action.payload,
       };
 
@@ -102,6 +114,7 @@ export const newRoomReducer = (state = { room: {} }, action) => {
   switch (action.type) {
     case NEW_ROOM_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -114,11 +127,13 @@ export const newRoomReducer = (state = { room: {} }, action) => {
 
     case NEW_ROOM_RESET:
       return {
+        ...state,
         success: false,
       };
 
     case NEW_ROOM_FAIL:
       return {
+        ...state,
         loading: false,
         error: action.payload,
       };
@@ -139,6 +154,7 @@ export const roomReducer = (state = {}, action) => {
     case UPDATE_ROOM_REQUEST:
     case DELETE_ROOM_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -156,11 +172,13 @@ export const roomReducer = (state = {}, action) => {
 
     case UPDATE_ROOM_RESET:
       return {
+        ...state,
         isUpdated: false,
       };
 
     case DELETE_ROOM_RESET:
       return {
+        ...state,
         loading: false,
         isDeleted: false,
       };
@@ -168,6 +186,7 @@ export const roomReducer = (state = {}, action) => {
     case UPDATE_ROOM_FAIL:
     case DELETE_ROOM_FAIL:
       return {
+        ...state,
         loading: false,
         error: action.payload,
       };
@@ -187,6 +206,7 @@ export const newReviewReducer = (state = {}, action) => {
   switch (action.type) {
     case NEW_REVIEW_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -198,11 +218,13 @@ export const newReviewReducer = (state = {}, action) => {
 
     case NEW_REVIEW_RESET:
       return {
+        ...state,
         success: false,
       };
 
     case NEW_REVIEW_FAIL:
       return {
+        ...state,
         loading: false,
         error: action.payload,
       };
@@ -225,6 +247,7 @@ export const checkReviewReducer = (
   switch (action.type) {
     case REVIEW_AVAILABILITY_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -236,7 +259,9 @@ export const checkReviewReducer = (
 
     case REVIEW_AVAILABILITY_FAIL:
       return {
+        ...state,
         loading: false,
+        reviewAvailable: state.reviewAvailable ?? null,
         error: action.payload,
       };
 
@@ -255,6 +280,7 @@ export const roomReviewsReducer = (state = { reviews: [] }, action) => {
   switch (action.type) {
     case GET_REVIEWS_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -266,7 +292,9 @@ export const roomReviewsReducer = (state = { reviews: [] }, action) => {
 
     case GET_REVIEWS_FAIL:
       return {
+        ...state,
         loading: false,
+        reviews: state.reviews || [],
         error: action.payload,
       };
 
@@ -285,6 +313,7 @@ export const reviewReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_REVIEW_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -296,12 +325,14 @@ export const reviewReducer = (state = {}, action) => {
 
     case DELETE_REVIEW_RESET:
       return {
+        ...state,
         loading: false,
         isDeleted: false,
       };
 
     case DELETE_REVIEW_FAIL:
       return {
+        ...state,
         loading: false,
         error: action.payload,
       };

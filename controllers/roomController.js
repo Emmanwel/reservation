@@ -6,7 +6,7 @@ import ErrorHandler from "../utils/errorHandler";
 import catchAsyncErrors from "../middlewares/catchAsyncErrors";
 import APIFeatures from "../utils/apiFeatures";
 
-// Create all rooms   =>   /api/rooms
+// Get all rooms   =>   /api/rooms
 const allRooms = catchAsyncErrors(async (req, res) => {
   const resPerPage = 8;
 
@@ -14,7 +14,7 @@ const allRooms = catchAsyncErrors(async (req, res) => {
 
   const apiFeatures = new APIFeatures(Room.find(), req.query).search().filter();
 
-  let rooms = await apiFeatures.query.clone;
+  let rooms = await apiFeatures.query.clone();
   let filteredRoomsCount = rooms.length;
 
   apiFeatures.pagination(resPerPage);
@@ -29,18 +29,13 @@ const allRooms = catchAsyncErrors(async (req, res) => {
   });
 });
 
-// Create new room   =>   /api/rooms
-// const newRoom = catchAsyncErrors(async (req, res) => {
-//   const room = await Room.create(req.body);
-//   res.status(200).json({
-//     success: true,
-//     room,
-//   });
-// });
-
-// Create new room   =>   /api/rooms
-const newRoom = catchAsyncErrors(async (req, res) => {
+// Create new room   =>   /api/rooms   (admin)
+const newRoom = catchAsyncErrors(async (req, res, next) => {
   const images = req.body.images;
+
+  if (!images || images.length === 0) {
+    return next(new ErrorHandler("Please upload at least one room image", 400));
+  }
 
   let imagesLinks = [];
 
@@ -77,8 +72,9 @@ const getSingleRoom = catchAsyncErrors(async (req, res, next) => {
     room,
   });
 });
-// Update room details   =>   /api/rooms/:id
-const updateRoom = catchAsyncErrors(async (req, res) => {
+
+// Update room details   =>   /api/rooms/:id   (admin)
+const updateRoom = catchAsyncErrors(async (req, res, next) => {
   let room = await Room.findById(req.query.id);
   if (!room) {
     return next(new ErrorHandler("Room not found with this ID", 404));
@@ -94,7 +90,7 @@ const updateRoom = catchAsyncErrors(async (req, res) => {
 
     for (let i = 0; i < images.length; i++) {
       const result = await cloudinary.v2.uploader.upload(images[i], {
-        folder: "bookit/rooms",
+        folder: "buluma/rooms",
       });
 
       imagesLinks.push({
@@ -117,8 +113,8 @@ const updateRoom = catchAsyncErrors(async (req, res) => {
   });
 });
 
-// Delete room   =>   /api/rooms/:id
-const deleteRoom = catchAsyncErrors(async (req, res) => {
+// Delete room   =>   /api/rooms/:id   (admin)
+const deleteRoom = catchAsyncErrors(async (req, res, next) => {
   const room = await Room.findById(req.query.id);
 
   if (!room) {
@@ -138,9 +134,8 @@ const deleteRoom = catchAsyncErrors(async (req, res) => {
   });
 });
 
-//from this place
-// Create a new review   =>   /api/reviews
-const createRoomReview = catchAsyncErrors(async (req, res) => {
+// Create/update a review   =>   /api/reviews
+const createRoomReview = catchAsyncErrors(async (req, res, next) => {
   const { rating, comment, roomId } = req.body;
 
   const review = {
@@ -152,6 +147,10 @@ const createRoomReview = catchAsyncErrors(async (req, res) => {
 
   const room = await Room.findById(roomId);
 
+  if (!room) {
+    return next(new ErrorHandler("Room not found with this ID", 404));
+  }
+
   const isReviewed = room.reviews.find(
     (r) => r.user.toString() === req.user._id.toString()
   );
@@ -160,7 +159,7 @@ const createRoomReview = catchAsyncErrors(async (req, res) => {
     room.reviews.forEach((review) => {
       if (review.user.toString() === req.user._id.toString()) {
         review.comment = comment;
-        review.rating = rating;
+        review.rating = Number(rating);
       }
     });
   } else {
@@ -205,8 +204,12 @@ const allAdminRooms = catchAsyncErrors(async (req, res) => {
 });
 
 // Get all room reviews - ADMIN   =>   /api/reviews
-const getRoomReviews = catchAsyncErrors(async (req, res) => {
+const getRoomReviews = catchAsyncErrors(async (req, res, next) => {
   const room = await Room.findById(req.query.id);
+
+  if (!room) {
+    return next(new ErrorHandler("Room not found with this ID", 404));
+  }
 
   res.status(200).json({
     success: true,
@@ -215,8 +218,12 @@ const getRoomReviews = catchAsyncErrors(async (req, res) => {
 });
 
 // Delete room review - ADMIN   =>   /api/reviews
-const deleteReview = catchAsyncErrors(async (req, res) => {
+const deleteReview = catchAsyncErrors(async (req, res, next) => {
   const room = await Room.findById(req.query.roomId);
+
+  if (!room) {
+    return next(new ErrorHandler("Room not found with this ID", 404));
+  }
 
   const reviews = room.reviews.filter(
     (review) => review._id.toString() !== req.query.id.toString()
@@ -225,7 +232,9 @@ const deleteReview = catchAsyncErrors(async (req, res) => {
   const numOfReviews = reviews.length;
 
   const ratings =
-    room.reviews.reduce((acc, item) => item.rating + acc, 0) / reviews.length;
+    numOfReviews === 0
+      ? 0
+      : reviews.reduce((acc, item) => item.rating + acc, 0) / numOfReviews;
 
   await Room.findByIdAndUpdate(
     req.query.roomId,
@@ -247,15 +256,6 @@ const deleteReview = catchAsyncErrors(async (req, res) => {
 });
 
 export {
-  //deleteRoom,
-  //allRooms,
-  //newRoom,
-  //getSingleRoom,
-  //updateRoom,
-  //createRoomReview,
-  //checkReviewAvailability,
-  //allAdminRooms,
-  //getRoomReviews,
   allRooms,
   newRoom,
   getSingleRoom,

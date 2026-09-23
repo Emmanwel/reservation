@@ -1,5 +1,6 @@
 import axios from "axios";
 import absoluteUrl from "next-absolute-url";
+import getErrorMessage from "../../utils/getErrorMessage";
 
 import {
   ALL_ROOMS_SUCCESS,
@@ -55,7 +56,7 @@ export const getRooms =
     } catch (error) {
       dispatch({
         type: ALL_ROOMS_FAIL,
-        payload: error.response.data.message,
+        payload: getErrorMessage(error),
       });
     }
   };
@@ -82,7 +83,7 @@ export const getRoomDetails = (req, id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ROOM_DETAILS_FAIL,
-      payload: error.response.data.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -99,11 +100,9 @@ export const getAdminRooms = () => async (dispatch) => {
       payload: data.rooms,
     });
   } catch (error) {
-    console.log(error);
-
     dispatch({
       type: ADMIN_ROOMS_FAIL,
-      payload: error.response.data.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -113,7 +112,7 @@ export const newRoom = (roomData) => async (dispatch) => {
     dispatch({ type: NEW_ROOM_REQUEST });
 
     const config = {
-      header: {
+      headers: {
         "Content-Type": "application/json",
       },
     };
@@ -127,7 +126,7 @@ export const newRoom = (roomData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: NEW_ROOM_FAIL,
-      payload: error.response.data.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -137,7 +136,7 @@ export const updateRoom = (id, roomData) => async (dispatch) => {
     dispatch({ type: UPDATE_ROOM_REQUEST });
 
     const config = {
-      header: {
+      headers: {
         "Content-Type": "application/json",
       },
     };
@@ -151,7 +150,7 @@ export const updateRoom = (id, roomData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_ROOM_FAIL,
-      payload: error.response.data.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -169,7 +168,7 @@ export const deleteRoom = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DELETE_ROOM_FAIL,
-      payload: error.response.data.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -179,7 +178,7 @@ export const newReview = (reviewData) => async (dispatch) => {
     dispatch({ type: NEW_REVIEW_REQUEST });
 
     const config = {
-      header: {
+      headers: {
         "Content-Type": "application/json",
       },
     };
@@ -193,7 +192,7 @@ export const newReview = (reviewData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: NEW_REVIEW_FAIL,
-      payload: error.response.data.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -213,7 +212,7 @@ export const checkReviewAvailability = (roomId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: REVIEW_AVAILABILITY_FAIL,
-      payload: error.response.data.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -231,7 +230,7 @@ export const getRoomReviews = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_REVIEWS_FAIL,
-      payload: error.response.data.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -251,7 +250,7 @@ export const deleteReview = (id, roomId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DELETE_REVIEW_FAIL,
-      payload: error.response.data.message,
+      payload: getErrorMessage(error),
     });
   }
 };

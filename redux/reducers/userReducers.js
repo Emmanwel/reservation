@@ -32,11 +32,16 @@ import {
   CLEAR_ERRORS,
 } from "../constants/userConstants";
 
+// Note: every REQUEST/FAIL branch below spreads `...state` first, so a
+// failed fetch never drops a slice's base shape (e.g. `user: {}`) out from
+// under a component that reads it without a guard.
+
 // Auth reducer
 export const authReducer = (state = { user: null }, action) => {
   switch (action.type) {
     case REGISTER_USER_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -48,6 +53,7 @@ export const authReducer = (state = { user: null }, action) => {
 
     case REGISTER_USER_FAIL:
       return {
+        ...state,
         loading: false,
         error: action.payload,
       };
@@ -71,6 +77,7 @@ export const loadedUserReducer = (
   switch (action.type) {
     case LOAD_USER_REQUEST:
       return {
+        ...state,
         loading: true,
         isAuthenticated: false,
       };
@@ -84,8 +91,10 @@ export const loadedUserReducer = (
 
     case LOAD_USER_FAIL:
       return {
+        ...state,
         loading: false,
         isAuthenticated: false,
+        user: null,
         error: action.payload,
       };
 
@@ -107,6 +116,7 @@ export const userReducer = (state = {}, action) => {
     case UPDATE_USER_REQUEST:
     case DELETE_USER_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -126,12 +136,14 @@ export const userReducer = (state = {}, action) => {
     case UPDATE_PROFILE_RESET:
     case UPDATE_USER_RESET:
       return {
+        ...state,
         loading: false,
         isUpdated: false,
       };
 
     case DELETE_USER_RESET:
       return {
+        ...state,
         loading: false,
         isDeleted: false,
       };
@@ -140,6 +152,7 @@ export const userReducer = (state = {}, action) => {
     case UPDATE_USER_FAIL:
     case DELETE_USER_FAIL:
       return {
+        ...state,
         loading: false,
         error: action.payload,
       };
@@ -155,12 +168,13 @@ export const userReducer = (state = {}, action) => {
   }
 };
 
-//forgotpassword
+// forgot password
 export const forgotPasswordReducer = (state = {}, action) => {
   switch (action.type) {
     case FORGOT_PASSWORD_REQUEST:
     case RESET_PASSWORD_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -179,6 +193,7 @@ export const forgotPasswordReducer = (state = {}, action) => {
     case FORGOT_PASSWORD_FAIL:
     case RESET_PASSWORD_FAIL:
       return {
+        ...state,
         loading: false,
         error: action.payload,
       };
@@ -198,6 +213,7 @@ export const allUsersReducer = (state = { users: [] }, action) => {
   switch (action.type) {
     case ADMIN_USERS_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -209,7 +225,9 @@ export const allUsersReducer = (state = { users: [] }, action) => {
 
     case ADMIN_USERS_FAIL:
       return {
+        ...state,
         loading: false,
+        users: state.users || [],
         error: action.payload,
       };
 
@@ -240,7 +258,9 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
 
     case USER_DETAILS_FAIL:
       return {
+        ...state,
         loading: false,
+        user: state.user || {},
         error: action.payload,
       };
 

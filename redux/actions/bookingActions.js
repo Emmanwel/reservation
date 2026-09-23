@@ -1,5 +1,6 @@
 import axios from "axios";
 import absoluteUrl from "next-absolute-url";
+import getErrorMessage from "../../utils/getErrorMessage";
 
 import {
   CHECK_BOOKING_REQUEST,
@@ -36,7 +37,7 @@ export const checkBooking =
     } catch (error) {
       dispatch({
         type: CHECK_BOOKING_FAIL,
-        payload: error.response.data.message,
+        payload: getErrorMessage(error),
       });
     }
   };
@@ -54,7 +55,7 @@ export const getBookedDates = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: BOOKED_DATES_FAIL,
-      payload: error.response.data.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -78,7 +79,7 @@ export const myBookings = (authCookie, req) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: MY_BOOKINGS_FAIL,
-      payload: error.response.data.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -96,7 +97,7 @@ export const getAdminBookings = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ADMIN_BOOKINGS_FAIL,
-      payload: error.response.data.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -114,7 +115,7 @@ export const deleteBooking = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DELETE_BOOKING_FAIL,
-      payload: error.response.data.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -138,7 +139,7 @@ export const getBookingDetails = (authCookie, req, id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: BOOKING_DETAILS_FAIL,
-      payload: error.response.data.message,
+      payload: getErrorMessage(error),
     });
   }
 };

@@ -126,7 +126,7 @@ const myBookings = catchAsyncErrors(async (req, res) => {
 });
 
 // Get booking details   =>   /api/bookings/:id
-const getBookingDetails = catchAsyncErrors(async (req, res) => {
+const getBookingDetails = catchAsyncErrors(async (req, res, next) => {
   const booking = await Booking.findById(req.query.id)
     .populate({
       path: "room",
@@ -136,6 +136,19 @@ const getBookingDetails = catchAsyncErrors(async (req, res) => {
       path: "user",
       select: "name email",
     });
+
+  if (!booking) {
+    return next(new ErrorHandler("Booking not found with this ID", 404));
+  }
+
+  // Only the booking owner or an admin may view a booking's details
+  const isOwner = booking.user && booking.user._id.toString() === req.user._id.toString();
+
+  if (!isOwner && req.user.role !== "admin") {
+    return next(
+      new ErrorHandler("You are not allowed to access this booking", 403)
+    );
+  }
 
   res.status(200).json({
     success: true,

@@ -15,8 +15,6 @@ const handler = nc({ onError });
 dbConnect();
 
 handler.get(getSingleRoom);
-handler.put(updateRoom);
-handler.delete(deleteRoom);
 
 handler.use(isAuthenticatedUser, authorizeRoles("admin")).put(updateRoom);
 

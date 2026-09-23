@@ -11,7 +11,6 @@ const handler = nc({ onError });
 dbConnect();
 
 handler.get(allRooms);
-handler.post(newRoom);
 
 handler.use(isAuthenticatedUser, authorizeRoles("admin")).post(newRoom);
 

@@ -19,11 +19,16 @@ import {
   CLEAR_ERRORS,
 } from "../constants/bookingConstants";
 
+// Note: every REQUEST/FAIL branch below spreads `...state` first, so a
+// failed fetch never drops a slice's base shape (e.g. `dates: []`,
+// `booking: {}`) out from under a component that reads it without a guard.
+
 // Check Booking
 export const checkBookingReducer = (state = { available: null }, action) => {
   switch (action.type) {
     case CHECK_BOOKING_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -41,7 +46,9 @@ export const checkBookingReducer = (state = { available: null }, action) => {
 
     case CHECK_BOOKING_FAIL:
       return {
+        ...state,
         loading: false,
+        available: state.available ?? null,
         error: action.payload,
       };
 
@@ -67,7 +74,9 @@ export const bookedDatesReducer = (state = { dates: [] }, action) => {
 
     case BOOKED_DATES_FAIL:
       return {
+        ...state,
         loading: false,
+        dates: state.dates || [],
         error: action.payload,
       };
 
@@ -86,6 +95,7 @@ export const bookingsReducer = (state = { bookings: [] }, action) => {
   switch (action.type) {
     case ADMIN_BOOKINGS_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -99,7 +109,9 @@ export const bookingsReducer = (state = { bookings: [] }, action) => {
     case MY_BOOKINGS_FAIL:
     case ADMIN_BOOKINGS_FAIL:
       return {
+        ...state,
         loading: false,
+        bookings: state.bookings || [],
         error: action.payload,
       };
 
@@ -124,7 +136,9 @@ export const bookingDetailsReducer = (state = { booking: {} }, action) => {
 
     case BOOKING_DETAILS_FAIL:
       return {
+        ...state,
         loading: false,
+        booking: state.booking || {},
         error: action.payload,
       };
 
@@ -143,6 +157,7 @@ export const bookingReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_BOOKING_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -154,12 +169,14 @@ export const bookingReducer = (state = {}, action) => {
 
     case DELETE_BOOKING_RESET:
       return {
+        ...state,
         loading: false,
         isDeleted: false,
       };
 
     case DELETE_BOOKING_FAIL:
       return {
+        ...state,
         loading: false,
         error: action.payload,
       };

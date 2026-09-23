@@ -34,7 +34,17 @@ export default NextAuth({
           throw new Error("Invalid Email or Password");
         }
 
-        return Promise.resolve(user);
+        // The JWT session cookie is signed but NOT encrypted, so its
+        // contents are readable by anyone with the cookie (including
+        // client-side JS). Never let the password hash or reset-token
+        // fields end up in it -- only pass along what the app needs.
+        return Promise.resolve({
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          avatar: user.avatar,
+          role: user.role,
+        });
       },
     }),
   ],

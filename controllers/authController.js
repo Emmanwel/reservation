@@ -15,24 +15,29 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+const DEFAULT_AVATAR = { public_id: "default_avatar", url: "/images/default_avatar.jpg" };
+
 // Register user   =>   /api/auth/register
 const registerUser = catchAsyncErrors(async (req, res) => {
-  const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
-    folder: "buluma/avatars",
-    width: "150",
-    crop: "scale",
-  });
+  const { name, email, password, avatar } = req.body;
 
-  const { name, email, password } = req.body;
+  let avatarData = DEFAULT_AVATAR;
+
+  if (avatar) {
+    const result = await cloudinary.v2.uploader.upload(avatar, {
+      folder: "buluma/avatars",
+      width: "150",
+      crop: "scale",
+    });
+
+    avatarData = { public_id: result.public_id, url: result.secure_url };
+  }
 
   const user = await User.create({
     name,
     email,
     password,
-    avatar: {
-      public_id: result.public_id,
-      url: result.secure_url,
-    },
+    avatar: avatarData,
   });
 
   res.status(200).json({
@@ -52,22 +57,24 @@ const currentUserProfile = catchAsyncErrors(async (req, res) => {
 });
 
 // Update user profile   =>   /api/me/update
-const updateProfile = catchAsyncErrors(async (req, res) => {
+const updateProfile = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.user._id);
 
-  if (user) {
-    user.name = req.body.name;
-    user.email = req.body.email;
-
-    if (req.body.password) user.password = req.body.password;
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
   }
 
-  // Update avatar
-  if (req.body.avatar !== "") {
-    const image_id = user.avatar.public_id;
+  user.name = req.body.name;
+  user.email = req.body.email;
 
-    // Delete user previous image/avatar
-    await cloudinary.v2.uploader.destroy(image_id);
+  if (req.body.password) user.password = req.body.password;
+
+  // Update avatar
+  if (req.body.avatar) {
+    // Delete previous avatar, unless it's the shared default one
+    if (user.avatar && user.avatar.public_id !== DEFAULT_AVATAR.public_id) {
+      await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+    }
 
     const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
       folder: "buluma/avatars",
@@ -177,11 +184,11 @@ const allAdminUsers = catchAsyncErrors(async (req, res) => {
 });
 
 // Get user details  =>   /api/admin/users/:id
-const getUserDetails = catchAsyncErrors(async (req, res) => {
+const getUserDetails = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.query.id);
 
   if (!user) {
-    return next(new ErrorHandler("User not found with this ID.", 400));
+    return next(new ErrorHandler("User not found with this ID.", 404));
   }
 
   res.status(200).json({
@@ -190,7 +197,7 @@ const getUserDetails = catchAsyncErrors(async (req, res) => {
   });
 });
 // Update user details  =>   /api/admin/users/:id
-const updateUser = catchAsyncErrors(async (req, res) => {
+const updateUser = catchAsyncErrors(async (req, res, next) => {
   const newUserData = {
     name: req.body.name,
     email: req.body.email,
@@ -203,22 +210,27 @@ const updateUser = catchAsyncErrors(async (req, res) => {
     useFindAndModify: false,
   });
 
+  if (!user) {
+    return next(new ErrorHandler("User not found with this ID.", 404));
+  }
+
   res.status(200).json({
     success: true,
   });
 });
 
 // Delete user    =>   /api/admin/users/:id
-const deleteUser = catchAsyncErrors(async (req, res) => {
+const deleteUser = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.query.id);
 
   if (!user) {
-    return next(new ErrorHandler("User not found with this ID.", 400));
+    return next(new ErrorHandler("User not found with this ID.", 404));
   }
 
-  // Remove avatar
-  const image_id = user.avatar.public_id;
-  await cloudinary.v2.uploader.destroy(image_id);
+  // Remove avatar, unless it's the shared default one
+  if (user.avatar && user.avatar.public_id !== DEFAULT_AVATAR.public_id) {
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+  }
 
   await user.remove();
 
