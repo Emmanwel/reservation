@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import { toast } from "react-toastify";
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,13 +14,15 @@ import {
 import { NEW_REVIEW_RESET } from "../../redux/constants/roomConstants";
 
 const NewReview = () => {
+  const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState("");
 
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { error, success } = useSelector((state) => state.newReview);
+  const { error, success, loading } = useSelector((state) => state.newReview);
   const { reviewAvailable } = useSelector((state) => state.checkReview);
 
   const { id } = router.query;
@@ -27,148 +31,89 @@ const NewReview = () => {
     if (id !== undefined) {
       dispatch(checkReviewAvailability(id));
     }
+  }, [dispatch, id]);
 
+  useEffect(() => {
     if (error) {
       toast.error(error);
       dispatch(clearErrors());
     }
 
     if (success) {
-      toast.success("Review is posted.");
+      toast.success("Your review has been posted.");
       dispatch({ type: NEW_REVIEW_RESET });
-
+      setOpen(false);
+      setRating(0);
+      setComment("");
       router.push(`/room/${id}`);
     }
-  }, [dispatch, success, error, id]);
+  }, [dispatch, success, error, id, router]);
 
   const submitHandler = () => {
-    const reviewData = {
-      rating,
-      comment,
-      roomId: id,
-    };
+    if (!rating) {
+      toast.error("Please select a star rating.");
+      return;
+    }
 
-    dispatch(newReview(reviewData));
+    dispatch(newReview({ rating, comment, roomId: id }));
   };
 
-  function setUserRatings() {
-    const stars = document.querySelectorAll(".star");
-
-    stars.forEach((star, index) => {
-      star.starValue = index + 1;
-
-      ["click", "mouseover", "mouseout"].forEach(function (e) {
-        star.addEventListener(e, showRatings);
-      });
-    });
-
-    function showRatings(e) {
-      stars.forEach((star, index) => {
-        if (e.type === "click") {
-          if (index < this.starValue) {
-            star.classList.add("red");
-
-            setRating(this.starValue);
-          } else {
-            star.classList.remove("red");
-          }
-        }
-
-        if (e.type === "mouseover") {
-          if (index < this.starValue) {
-            star.classList.add("light-red");
-          } else {
-            star.classList.remove("light-red");
-          }
-        }
-
-        if (e.type === "mouseout") {
-          star.classList.remove("light-red");
-        }
-      });
-    }
-  }
+  if (!reviewAvailable) return null;
 
   return (
     <>
-      {reviewAvailable && (
-        <button
-          id="review_btn"
-          type="button"
-          className="btn btn-primary mt-4 mb-5"
-          data-toggle="modal"
-          data-target="#ratingModal"
-          onClick={setUserRatings}
-        >
-          Submit Your Review
-        </button>
-      )}
-      <div
-        className="modal fade"
-        id="ratingModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="ratingModalLabel"
-        aria-hidden="true"
+      <button
+        id="review_btn"
+        type="button"
+        className="btn btn-primary mt-4 mb-5"
+        onClick={() => setOpen(true)}
       >
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="ratingModalLabel">
-                Submit Review
-              </h5>
+        Submit your review
+      </button>
 
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
+      <Modal open={open} onClose={() => setOpen(false)} center>
+        <div style={{ minWidth: 320, maxWidth: 420, padding: "0.5rem" }}>
+          <h4 style={{ fontFamily: "var(--font-display)" }}>Submit review</h4>
+
+          <ul className="stars" style={{ padding: 0, listStyle: "none", display: "flex" }}>
+            {[1, 2, 3, 4, 5].map((value) => (
+              <li
+                key={value}
+                className={`star ${
+                  value <= (hoverRating || rating) ? "red" : ""
+                }`}
+                onClick={() => setRating(value)}
+                onMouseEnter={() => setHoverRating(value)}
+                onMouseLeave={() => setHoverRating(0)}
+                role="button"
+                aria-label={`${value} star${value > 1 ? "s" : ""}`}
               >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <ul className="stars">
-                <li className="star">
-                  <i className="fa fa-star"></i>
-                </li>
-                <li className="star">
-                  <i className="fa fa-star"></i>
-                </li>
-                <li className="star">
-                  <i className="fa fa-star"></i>
-                </li>
-                <li className="star">
-                  <i className="fa fa-star"></i>
-                </li>
-                <li className="star">
-                  <i className="fa fa-star"></i>
-                </li>
-              </ul>
+                <i className="fa fa-star"></i>
+              </li>
+            ))}
+          </ul>
 
-              <textarea
-                name="review"
-                id="review"
-                className="form-control mt-3"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-              ></textarea>
+          <textarea
+            name="review"
+            id="review"
+            rows={4}
+            className="form-control mt-3"
+            placeholder="Tell other guests about your stay..."
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          ></textarea>
 
-              <button
-                className="btn my-3 float-right review-btn px-4 text-white"
-                data-dismiss="modal"
-                aria-label="Close"
-                onClick={submitHandler}
-              >
-                Submit
-              </button>
-            </div>
-          </div>
+          <button
+            className="btn my-3 float-right review-btn px-4 text-white"
+            onClick={submitHandler}
+            disabled={loading}
+          >
+            {loading ? "Submitting..." : "Submit"}
+          </button>
         </div>
-      </div>
+      </Modal>
     </>
   );
 };
 
 export default NewReview;
- 

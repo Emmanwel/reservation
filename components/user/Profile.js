@@ -40,6 +40,7 @@ const Profile = () => {
       setUser({
         name: loadedUser.name,
         email: loadedUser.email,
+        password: "",
       });
       setAvatarPreview(loadedUser.avatar.url);
     }
@@ -50,10 +51,11 @@ const Profile = () => {
     }
 
     if (isUpdated) {
+      toast.success("Profile updated.");
       router.push("/");
       dispatch({ type: UPDATE_PROFILE_RESET });
     }
-  }, [dispatch, isUpdated, error, loadedUser]);
+  }, [dispatch, isUpdated, error, loadedUser, router]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -70,6 +72,9 @@ const Profile = () => {
 
   const onChange = (e) => {
     if (e.target.name === "avatar") {
+      const file = e.target.files[0];
+      if (!file) return;
+
       const reader = new FileReader();
 
       reader.onload = () => {
@@ -79,7 +84,7 @@ const Profile = () => {
         }
       };
 
-      reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(file);
     } else {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
@@ -94,7 +99,7 @@ const Profile = () => {
           <div className="row wrapper">
             <div className="col-10 col-lg-5">
               <form className="shadow-lg" onSubmit={submitHandler}>
-                <h1 className="mb-3">Update Profile</h1>
+                <h1 className="mb-3">Update profile</h1>
 
                 <div className="form-group">
                   <label htmlFor="name_field">Name</label>
@@ -105,6 +110,7 @@ const Profile = () => {
                     name="name"
                     value={name}
                     onChange={onChange}
+                    required
                   />
                 </div>
 
@@ -117,11 +123,12 @@ const Profile = () => {
                     name="email"
                     value={email}
                     onChange={onChange}
+                    required
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="password_field">Password</label>
+                  <label htmlFor="password_field">New password</label>
                   <input
                     type="password"
                     id="password_field"
@@ -129,6 +136,8 @@ const Profile = () => {
                     name="password"
                     value={password}
                     onChange={onChange}
+                    autoComplete="new-password"
+                    placeholder="Leave blank to keep your current password"
                   />
                 </div>
 
@@ -140,7 +149,7 @@ const Profile = () => {
                         <img
                           src={avatarPreview}
                           className="rounded-circle"
-                          alt="image"
+                          alt="Avatar preview"
                         />
                       </figure>
                     </div>
@@ -150,21 +159,21 @@ const Profile = () => {
                         name="avatar"
                         className="custom-file-input"
                         id="customFile"
-                        accept="images/*"
+                        accept="image/*"
                         onChange={onChange}
                       />
                       <label className="custom-file-label" htmlFor="customFile">
-                        Choose Avatar
+                        Choose avatar
                       </label>
                     </div>
                   </div>
                 </div>
 
                 <button
-                  id="login_button"
+                  id="update_profile_button"
                   type="submit"
                   className="btn btn-block py-3"
-                  disabled={updateLoading ? true : false}
+                  disabled={updateLoading}
                 >
                   {updateLoading ? <ButtonLoader /> : "UPDATE"}
                 </button>

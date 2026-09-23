@@ -109,9 +109,11 @@ const NewRoom = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="price_field">Price</label>
+              <label htmlFor="price_field">Price per night (Ksh)</label>
               <input
-                type="text"
+                type="number"
+                min="0"
+                step="1"
                 id="price_field"
                 className="form-control"
                 value={price}
@@ -269,6 +271,7 @@ const NewRoom = () => {
                   name="room_images"
                   className="custom-file-input"
                   id="customFile"
+                  accept="image/*"
                   onChange={onChange}
                   multiple
                 />

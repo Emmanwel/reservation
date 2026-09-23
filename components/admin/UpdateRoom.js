@@ -69,7 +69,7 @@ const UpdateRoom = () => {
     }
 
     if (roomDetailsError) {
-      toast.roomDetailsError(error);
+      toast.error(roomDetailsError);
       dispatch(clearErrors());
     }
 
@@ -150,9 +150,11 @@ const UpdateRoom = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="price_field">Price</label>
+                  <label htmlFor="price_field">Price per night (Ksh)</label>
                   <input
-                    type="text"
+                    type="number"
+                    min="0"
+                    step="1"
                     id="price_field"
                     className="form-control"
                     value={price}
@@ -321,6 +323,7 @@ const UpdateRoom = () => {
                       name="room_images"
                       className="custom-file-input"
                       id="customFile"
+                      accept="image/*"
                       onChange={onChange}
                       multiple
                     />
@@ -330,25 +333,27 @@ const UpdateRoom = () => {
                   </div>
 
                   {imagesPreview.map((img) => (
-                    <image
+                    <img
                       src={img}
                       key={img}
                       alt="Images Preview"
                       className="mt-3 mr-2"
                       width="55"
                       height="52"
+                      style={{ objectFit: "cover", borderRadius: "var(--radius-sm)" }}
                     />
                   ))}
 
                   {oldImages &&
                     oldImages.map((img) => (
-                      <image
+                      <img
                         src={img.url}
                         key={img.public_id}
                         alt="Images Preview"
                         className="mt-3 mr-2"
                         width="55"
                         height="52"
+                        style={{ objectFit: "cover", borderRadius: "var(--radius-sm)" }}
                       />
                     ))}
                 </div>

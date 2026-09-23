@@ -1,77 +1,42 @@
 import React from "react";
 
+const FEATURES = [
+  { key: "guestCapacity", icon: "fa-users", label: (room) => `${room.guestCapacity} Guests` },
+  { key: "numOfBeds", icon: "fa-bed", label: (room) => `${room.numOfBeds} Beds` },
+  { key: "breakfast", icon: "fa-cutlery", label: () => "Breakfast" },
+  { key: "internet", icon: "fa-wifi", label: () => "Internet" },
+  { key: "airConditioned", icon: "fa-snowflake-o", label: () => "Air conditioned" },
+  { key: "petsAllowed", icon: "fa-paw", label: () => "Pets allowed" },
+  { key: "roomCleaning", icon: "fa-magic", label: () => "Room cleaning" },
+];
+
 const RoomFeatures = ({ room }) => {
   return (
     <div className="features mt-5">
-      <h3 className="mb-4">Features:</h3>
-      <div className="room-feature">
-        <i className="fa fa-cog fa-fw fa-users" aria-hidden="true"></i>
-        <p>{room.guestCapacity} Guests</p>
-      </div>
+      <h3 className="mb-4">Features</h3>
+      <div className="row">
+        {FEATURES.map(({ key, icon, label }) => {
+          const isBoolean = key !== "guestCapacity" && key !== "numOfBeds";
+          const available = isBoolean ? Boolean(room[key]) : true;
 
-      <div className="room-feature">
-        <i className="fa fa-cog fa-fw fa-bed" aria-hidden="true"></i>
-        <p>{room.numOfBeds} Beds</p>
-      </div>
-
-      <div className="room-feature">
-        <i
-          className={
-            room.breakfast
-              ? "fa fa-check text-success"
-              : "fa fa-times text-danger"
-          }
-          aria-hidden="true"
-        ></i>
-        <p>Breakfast</p>
-      </div>
-
-      <div className="room-feature">
-        <i
-          className={
-            room.internet
-              ? "fa fa-check text-success"
-              : "fa fa-times text-danger"
-          }
-          aria-hidden="true"
-        ></i>
-        <p>Internet</p>
-      </div>
-
-      <div className="room-feature">
-        <i
-          className={
-            room.airConditioned
-              ? "fa fa-check text-success"
-              : "fa fa-times text-danger"
-          }
-          aria-hidden="true"
-        ></i>
-        <p>Air Conditioned</p>
-      </div>
-
-      <div className="room-feature">
-        <i
-          className={
-            room.petsAllowed
-              ? "fa fa-check text-success"
-              : "fa fa-times text-danger"
-          }
-          aria-hidden="true"
-        ></i>
-        <p>Pets Allowed</p>
-      </div>
-
-      <div className="room-feature">
-        <i
-          className={
-            room.roomCleaning
-              ? "fa fa-check text-success"
-              : "fa fa-times text-danger"
-          }
-          aria-hidden="true"
-        ></i>
-        <p>Room Cleaning</p>
+          return (
+            <div className="col-6 col-md-4 room-feature" key={key}>
+              <i
+                className={`fa ${icon} fa-fw`}
+                aria-hidden="true"
+                style={{
+                  color: available ? "var(--color-primary)" : "var(--color-border)",
+                }}
+              ></i>
+              <p style={{ color: available ? undefined : "var(--color-ink-faint)" }}>
+                {label(room)}
+                {isBoolean && !available && (
+                  <span style={{ fontSize: "0.8rem" }}> (not included)</span>
+                )}
+              </p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

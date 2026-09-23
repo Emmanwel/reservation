@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
 import axios from "axios";
@@ -22,6 +23,7 @@ import {
 } from "../../redux/actions/bookingActions";
 import { CHECK_BOOKING_RESET } from "../../redux/constants/bookingConstants";
 
+import getErrorMessage from "../../utils/getErrorMessage";
 import getStripe from "../../utils/getStripe";
 
 const RoomDetails = () => {
@@ -45,64 +47,39 @@ const RoomDetails = () => {
     excludedDates.push(new Date(date));
   });
 
-  const onChange = (dates) => {
-    const [checkInDate, checkOutDate] = dates;
+  const { id } = router.query;
 
-    setCheckInDate(checkInDate);
-    setCheckOutDate(checkOutDate);
+  const onChange = (selectedDates) => {
+    const [newCheckInDate, newCheckOutDate] = selectedDates;
 
-    if (checkInDate && checkOutDate) {
+    setCheckInDate(newCheckInDate);
+    setCheckOutDate(newCheckOutDate);
+
+    if (newCheckInDate && newCheckOutDate) {
       // Calculating days of stay
-
       const days = Math.floor(
-        (new Date(checkOutDate) - new Date(checkInDate)) / 86400000 + 1
+        (new Date(newCheckOutDate) - new Date(newCheckInDate)) / 86400000 + 1
       );
 
       setDaysOfStay(days);
 
       dispatch(
-        checkBooking(id, checkInDate.toISOString(), checkOutDate.toISOString())
+        checkBooking(
+          id,
+          newCheckInDate.toISOString(),
+          newCheckOutDate.toISOString()
+        )
       );
     }
   };
 
-  const { id } = router.query;
-
-  const newBookingHandler = async () => {
-    const bookingData = {
-      room: router.query.id,
-      checkInDate,
-      checkOutDate,
-      daysOfStay,
-      amountPaid: 90,
-      paymentInfo: {
-        id: "STRIPE_PAYMENT_ID",
-        status: "STRIPE_PAYMENT_STATUS",
-      },
-    };
-
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-
-      const { data } = await axios.post("/api/bookings", bookingData, config);
-
-      console.log(data);
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
-
-  const bookRoom = async (id, pricePerNight) => {
+  const bookRoom = async (roomId, pricePerNight) => {
     setPaymentLoading(true);
 
     const amount = pricePerNight * daysOfStay;
 
     try {
-      const link = `/api/checkout_session/${id}?checkInDate=${checkInDate.toISOString()}&checkOutDate=${checkOutDate.toISOString()}&daysOfStay=${daysOfStay}`;
+      const link = `/api/checkout_session/${roomId}?checkInDate=${checkInDate.toISOString()}&checkOutDate=${checkOutDate.toISOString()}&daysOfStay=${daysOfStay}`;
 
       const { data } = await axios.get(link, { params: { amount } });
 
@@ -110,35 +87,38 @@ const RoomDetails = () => {
 
       // Redirect to checkout
       stripe.redirectToCheckout({ sessionId: data.id });
-
+    } catch (err) {
+      toast.error(getErrorMessage(err));
+    } finally {
       setPaymentLoading(false);
-    } catch (error) {
-      setPaymentLoading(false);
-      console.log(error);
-      toast.error(error.message);
     }
   };
 
   useEffect(() => {
     dispatch(getBookedDates(id));
 
-    toast.error(error);
-    dispatch(clearErrors());
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
 
     return () => {
       dispatch({ type: CHECK_BOOKING_RESET });
     };
-  }, [dispatch, id]);
+  }, [dispatch, id, error]);
 
   return (
     <>
       <Head>
-        <title>{room.name} - Resort Reservation </title>
+        <title>{room.name ? `${room.name} - Resorts Reservation` : "Room details"}</title>
       </Head>
 
-      <div className="container container-fluid">
+      <div className="container container-fluid room-details">
         <h2 className="mt-5">{room.name}</h2>
-        <p>{room.address}</p>
+        <p className="text-muted">
+          <i className="fa fa-map-marker mr-1" aria-hidden="true"></i>
+          {room.address}
+        </p>
 
         <div className="ratings mt-auto mb-3">
           <div className="rating-outer">
@@ -147,19 +127,21 @@ const RoomDetails = () => {
               style={{ width: `${(room.ratings / 5) * 100}%` }}
             ></div>
           </div>
-          <span id="no_of_reviews">({room.numOfReviews} Reviews)</span>
+          <span id="no_of_reviews">({room.numOfReviews} reviews)</span>
         </div>
 
-        <Carousel hover="pause">
+        <Carousel hover="pause" className="room-details__carousel">
           {room.images &&
             room.images.map((image) => (
               <Carousel.Item key={image.public_id}>
-                <div style={{ width: "100%", height: "440px" }}>
+                <div style={{ position: "relative", width: "100%", height: "440px" }}>
                   <Image
                     className="d-block m-auto"
                     src={image.url}
                     alt={room.name}
                     layout="fill"
+                    objectFit="cover"
+                    priority
                   />
                 </div>
               </Carousel.Item>
@@ -175,14 +157,19 @@ const RoomDetails = () => {
           </div>
 
           <div className="col-12 col-md-6 col-lg-4">
-            <div className="booking-card shadow-lg p-4">
-              <p className="price-per-night">
-                <b>Ksh {room.pricePerNight}</b> / Night
+            <div className="booking-card shadow-lg p-4" style={{ position: "sticky", top: "5.5rem" }}>
+              <p className="price-per-night mb-0">
+                <b>Ksh {room.pricePerNight}</b>
               </p>
+              <span className="text-muted" style={{ fontSize: "0.9rem" }}>
+                per night
+              </span>
 
               <hr />
 
-              <p className="mt-5 mb-3">Pick Check In & Check Out Date</p>
+              <p className="mb-3 font-weight-bold">
+                Pick check-in &amp; check-out dates
+              </p>
 
               <DatePicker
                 className="w-100"
@@ -198,19 +185,23 @@ const RoomDetails = () => {
 
               {available === true && (
                 <div className="mx-auto alert alert-success my-3 font-weight-bold">
-                  RESORT IS AVAILABLE.
+                  <i className="fa fa-check-circle mr-1"></i> This resort is
+                  available.
                 </div>
               )}
 
               {available === false && (
                 <div className="alert alert-danger my-3 font-weight-bold">
-                  Room Not Available. Try Different Dates.
+                  Not available for these dates. Try a different range.
                 </div>
               )}
 
               {available && !user && (
-                <div className="alert alert-danger my-3 font-weight-bold">
-                  Login to Book The Resort.
+                <div className="alert alert-warning my-3 font-weight-bold">
+                  <Link href="/login">
+                    <a>Login</a>
+                  </Link>{" "}
+                  to book this resort.
                 </div>
               )}
 
@@ -218,9 +209,11 @@ const RoomDetails = () => {
                 <button
                   className="btn btn-block py-3 booking-btn"
                   onClick={() => bookRoom(room._id, room.pricePerNight)}
-                  disabled={bookingLoading || paymentLoading ? true : false}
+                  disabled={bookingLoading || paymentLoading}
                 >
-                  Pay - Ksh {daysOfStay * room.pricePerNight}
+                  {paymentLoading
+                    ? "Redirecting to payment..."
+                    : `Pay - Ksh ${daysOfStay * room.pricePerNight}`}
                 </button>
               )}
             </div>
@@ -232,8 +225,8 @@ const RoomDetails = () => {
         {room.reviews && room.reviews.length > 0 ? (
           <ListReviews reviews={room.reviews} />
         ) : (
-          <p>
-            <b>No Reviews on this room</b>
+          <p className="text-muted mb-5">
+            <b>No reviews yet for this room.</b>
           </p>
         )}
       </div>
