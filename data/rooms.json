@@ -13,12 +13,12 @@
     "roomCleaning": true,
     "images": [
       {
-        "public_id": "bookit/rooms/1_bzynlv",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590762/bookit/rooms/1_bzynlv.jpg"
+        "public_id": "seed/123",
+        "url": "/images/123.jpg"
       },
       {
-        "public_id": "bookit/rooms/2_s1u52n",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590761/bookit/rooms/2_s1u52n.jpg"
+        "public_id": "seed/12",
+        "url": "/images/12.jpg"
       }
     ],
     "category": "King"
@@ -37,8 +37,8 @@
     "roomCleaning": true,
     "images": [
       {
-        "public_id": "bookit/rooms/3_quuli7.jpg",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590762/bookit/rooms/3_quuli7.jpg"
+        "public_id": "seed/212",
+        "url": "/images/212.jpg"
       }
     ],
     "category": "Twins"
@@ -57,8 +57,8 @@
     "roomCleaning": false,
     "images": [
       {
-        "public_id": "bookit/rooms/4_sju0ql",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590765/bookit/rooms/4_sju0ql.jpg"
+        "public_id": "seed/Deluxe-Room-300x237",
+        "url": "/images/Deluxe-Room-300x237.jpg"
       }
     ],
     "category": "King"
@@ -77,12 +77,12 @@
     "roomCleaning": true,
     "images": [
       {
-        "public_id": "bookit/rooms/5_jmydt6",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590762/bookit/rooms/5_jmydt6.jpg"
+        "public_id": "seed/Welcomhotel-Tavleen-Chail_1200",
+        "url": "/images/Welcomhotel-Tavleen-Chail_1200.jpg"
       },
       {
-        "public_id": "bookit/rooms/6_nwmr5f",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590764/bookit/rooms/6_nwmr5f.jpg"
+        "public_id": "seed/download_10",
+        "url": "/images/download (10).jfif"
       }
     ],
     "category": "Single"
@@ -101,8 +101,8 @@
     "roomCleaning": true,
     "images": [
       {
-        "public_id": "bookit/rooms/7_hshhzq",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590764/bookit/rooms/7_hshhzq.jpg"
+        "public_id": "seed/download_1",
+        "url": "/images/download (1).jfif"
       }
     ],
     "category": "King"
@@ -121,14 +121,14 @@
     "roomCleaning": true,
     "images": [
       {
-        "public_id": "bookit/rooms/8_crn0xy",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590765/bookit/rooms/8_crn0xy.jpg"
+        "public_id": "seed/download_2",
+        "url": "/images/download (2).jfif"
       }
     ],
     "category": "Twins"
   },
   {
-    "name": "Hotel Garni Ischgl ☆ 4 star room comfort",
+    "name": "Hotel Garni Ischgl \u2606 4 star room comfort",
     "pricePerNight": 2890,
     "description": "Spread out in our spacious and airy Executive King Suite, which boasts a plush king bed and several sitting areas. You'll enjoy the privacy of our beautifully designed Master Suite that offers the space, functionality and efficiency you desire while vacationing.Our largest room with a queen bed and foldable sofa.",
     "address": "2645  Parrish Avenue, LAGOS, MO, 63116",
@@ -141,8 +141,8 @@
     "roomCleaning": true,
     "images": [
       {
-        "public_id": "bookit/rooms/9_konrjf",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590849/bookit/rooms/9_konrjf.jpg"
+        "public_id": "seed/download_3",
+        "url": "/images/download (3).jfif"
       }
     ],
     "category": "Single"
@@ -161,14 +161,14 @@
     "roomCleaning": true,
     "images": [
       {
-        "public_id": "bookit/rooms/10_w8w8yi",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590840/bookit/rooms/10_w8w8yi.jpg"
+        "public_id": "seed/download_4",
+        "url": "/images/download (4).jfif"
       }
     ],
     "category": "Single"
   },
   {
-    "name": "Hotel Garni Ischgl ☆ 4 star room comfort",
+    "name": "Hotel Garni Ischgl \u2606 4 star room comfort",
     "pricePerNight": 73,
     "description": "Our spacious and comfortable Corner Junior Suites feature luxury bedding, extra space and some offer spectacular views of Portland. Relax in our spacious suites with a balcony and beautiful view, offering the space you need to feel at home.",
     "address": "2645  Parrish Avenue, SAINT LOUIS, MO, 63116",
@@ -181,14 +181,14 @@
     "roomCleaning": true,
     "images": [
       {
-        "public_id": "bookit/rooms/9_konrjf",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590849/bookit/rooms/9_konrjf.jpg"
+        "public_id": "seed/download_5",
+        "url": "/images/download (5).jfif"
       }
     ],
     "category": "King"
   },
   {
-    "name": "Hotel Garni Ischgl ☆ 4 star room comfort",
+    "name": "Hotel Garni Ischgl \u2606 4 star room comfort",
     "pricePerNight": 100,
     "description": "Our suites offer an elegant living room separate from the bedroom. Relax and feel right at home in our Griffin Suite, complete with a separate bedroom, spacious living room, a kitchenette, and direct access to the pool.",
     "address": "2645  Parrish Avenue, MOMBASA, MO, 63116",
@@ -201,8 +201,8 @@
     "roomCleaning": false,
     "images": [
       {
-        "public_id": "bookit/rooms/9_konrjf",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590849/bookit/rooms/9_konrjf.jpg"
+        "public_id": "seed/download_6",
+        "url": "/images/download (6).jfif"
       }
     ],
     "category": "Single"
@@ -221,8 +221,8 @@
     "roomCleaning": true,
     "images": [
       {
-        "public_id": "bookit/rooms/9_konrjf",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590849/bookit/rooms/9_konrjf.jpg"
+        "public_id": "seed/download_7",
+        "url": "/images/download (7).jfif"
       }
     ],
     "category": "Twins"
