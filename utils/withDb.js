@@ -13,6 +13,7 @@ const withDb = (handler) => async (req, res) => {
     console.error("Database connection error:", error.message);
     res.status(500).json({
       success: false,
+      code: "DB_UNAVAILABLE",
       message:
         "We couldn't reach the database right now. Please try again shortly.",
     });

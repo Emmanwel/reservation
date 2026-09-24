@@ -1,6 +1,7 @@
 import axios from "axios";
 import absoluteUrl from "next-absolute-url";
 import getErrorMessage from "../../utils/getErrorMessage";
+import isDbUnavailableError from "../../utils/isDbUnavailableError";
 
 import {
   CHECK_BOOKING_REQUEST,
@@ -37,7 +38,7 @@ export const checkBooking =
     } catch (error) {
       dispatch({
         type: CHECK_BOOKING_FAIL,
-        payload: getErrorMessage(error),
+        payload: isDbUnavailableError(error) ? null : getErrorMessage(error),
       });
     }
   };
@@ -55,7 +56,7 @@ export const getBookedDates = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: BOOKED_DATES_FAIL,
-      payload: getErrorMessage(error),
+      payload: isDbUnavailableError(error) ? null : getErrorMessage(error),
     });
   }
 };

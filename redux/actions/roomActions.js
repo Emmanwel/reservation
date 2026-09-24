@@ -1,6 +1,7 @@
 import axios from "axios";
 import absoluteUrl from "next-absolute-url";
 import getErrorMessage from "../../utils/getErrorMessage";
+import isDbUnavailableError from "../../utils/isDbUnavailableError";
 
 import {
   ALL_ROOMS_SUCCESS,
@@ -56,7 +57,10 @@ export const getRooms =
     } catch (error) {
       dispatch({
         type: ALL_ROOMS_FAIL,
-        payload: getErrorMessage(error),
+        // This runs on every page load, unprompted -- if the database
+        // just isn't set up yet, show an empty room list rather than an
+        // error toast greeting every visitor.
+        payload: isDbUnavailableError(error) ? null : getErrorMessage(error),
       });
     }
   };
@@ -83,7 +87,7 @@ export const getRoomDetails = (req, id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ROOM_DETAILS_FAIL,
-      payload: getErrorMessage(error),
+      payload: isDbUnavailableError(error) ? null : getErrorMessage(error),
     });
   }
 };
@@ -102,7 +106,7 @@ export const getAdminRooms = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ADMIN_ROOMS_FAIL,
-      payload: getErrorMessage(error),
+      payload: isDbUnavailableError(error) ? null : getErrorMessage(error),
     });
   }
 };
@@ -212,7 +216,7 @@ export const checkReviewAvailability = (roomId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: REVIEW_AVAILABILITY_FAIL,
-      payload: getErrorMessage(error),
+      payload: isDbUnavailableError(error) ? null : getErrorMessage(error),
     });
   }
 };
@@ -230,7 +234,7 @@ export const getRoomReviews = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_REVIEWS_FAIL,
-      payload: getErrorMessage(error),
+      payload: isDbUnavailableError(error) ? null : getErrorMessage(error),
     });
   }
 };
