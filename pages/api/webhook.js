@@ -1,13 +1,11 @@
 import nc from "next-connect";
-import dbConnect from "../../config/dbConnect";
+import withDb from "../../utils/withDb";
 
 import { webhookCheckout } from "../../controllers/paymentControllers";
 
 import onError from "../../middlewares/errors";
 
 const handler = nc({ onError });
-
-dbConnect();
 
 export const config = {
   api: {
@@ -17,4 +15,4 @@ export const config = {
 
 handler.post(webhookCheckout);
 
-export default handler;
+export default withDb(handler);

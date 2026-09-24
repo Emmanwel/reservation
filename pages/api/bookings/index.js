@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import dbConnect from "../../../config/dbConnect";
+import withDb from "../../../utils/withDb";
 
 import { newBooking } from "../../../controllers/bookingControllers";
 
@@ -8,8 +8,6 @@ import onError from "../../../middlewares/errors";
 
 const handler = nc({ onError });
 
-dbConnect();
-
 handler.use(isAuthenticatedUser).post(newBooking);
 
-export default handler;
+export default withDb(handler);

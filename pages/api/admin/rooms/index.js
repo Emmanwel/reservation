@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import dbConnect from "../../../../config/dbConnect";
+import withDb from "../../../../utils/withDb";
 
 import { allAdminRooms } from "../../../../controllers/roomController";
 
@@ -11,8 +11,6 @@ import {
 
 const handler = nc({ onError });
 
-dbConnect();
-
 handler.use(isAuthenticatedUser, authorizeRoles("admin")).get(allAdminRooms);
 
-export default handler;
+export default withDb(handler);
