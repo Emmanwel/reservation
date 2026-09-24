@@ -57,7 +57,7 @@ const Login = () => {
 
             <div className="form-group">
               <label htmlFor="password_field">Password</label>
-              <div className="input-group">
+              <div className="password-field">
                 <input
                   type={showPassword ? "text" : "password"}
                   id="password_field"
@@ -67,17 +67,15 @@ const Login = () => {
                   autoComplete="current-password"
                   required
                 />
-                <div className="input-group-append">
-                  <button
-                    type="button"
-                    className="btn btn-outline-secondary"
-                    onClick={() => setShowPassword((show) => !show)}
-                    tabIndex={-1}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
-                  >
-                    <i className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword((show) => !show)}
+                  tabIndex={-1}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  <i className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+                </button>
               </div>
             </div>
 
